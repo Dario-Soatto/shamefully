@@ -26,10 +26,12 @@ export default function GoalUpdateForm(props) {
   } = props;
   const initialValues = {
     name: "",
+    title: "",
     description: "",
     deadline: "",
   };
   const [name, setName] = React.useState(initialValues.name);
+  const [title, setTitle] = React.useState(initialValues.title);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
@@ -40,6 +42,7 @@ export default function GoalUpdateForm(props) {
       ? { ...initialValues, ...goalRecord }
       : initialValues;
     setName(cleanValues.name);
+    setTitle(cleanValues.title);
     setDescription(cleanValues.description);
     setDeadline(cleanValues.deadline);
     setErrors({});
@@ -62,6 +65,7 @@ export default function GoalUpdateForm(props) {
   React.useEffect(resetStateValues, [goalRecord]);
   const validations = {
     name: [],
+    title: [],
     description: [],
     deadline: [],
   };
@@ -109,6 +113,7 @@ export default function GoalUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           name: name ?? null,
+          title: title ?? null,
           description: description ?? null,
           deadline: deadline ?? null,
         };
@@ -172,6 +177,7 @@ export default function GoalUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name: value,
+              title,
               description,
               deadline,
             };
@@ -189,6 +195,33 @@ export default function GoalUpdateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
+        label="Title"
+        isRequired={false}
+        isReadOnly={false}
+        value={title}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              title: value,
+              description,
+              deadline,
+            };
+            const result = onChange(modelFields);
+            value = result?.title ?? value;
+          }
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
+          }
+          setTitle(value);
+        }}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
+      ></TextField>
+      <TextField
         label="Description"
         isRequired={false}
         isReadOnly={false}
@@ -198,6 +231,7 @@ export default function GoalUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name,
+              title,
               description: value,
               deadline,
             };
@@ -226,6 +260,7 @@ export default function GoalUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name,
+              title,
               description,
               deadline: value,
             };

@@ -23,11 +23,13 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type GoalCreateFormInputValues = {
     name?: string;
+    title?: string;
     description?: string;
     deadline?: string;
 };
 export declare type GoalCreateFormValidationValues = {
     name?: ValidationFunction<string>;
+    title?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     deadline?: ValidationFunction<string>;
 };
@@ -35,6 +37,7 @@ export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes
 export declare type GoalCreateFormOverridesProps = {
     GoalCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     deadline?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;

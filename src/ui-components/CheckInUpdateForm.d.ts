@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { CheckIn } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -45,7 +46,7 @@ export declare type CheckInUpdateFormProps = React.PropsWithChildren<{
     overrides?: CheckInUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    checkIn?: any;
+    checkIn?: CheckIn;
     onSubmit?: (fields: CheckInUpdateFormInputValues) => CheckInUpdateFormInputValues;
     onSuccess?: (fields: CheckInUpdateFormInputValues) => void;
     onError?: (fields: CheckInUpdateFormInputValues, errorMessage: string) => void;

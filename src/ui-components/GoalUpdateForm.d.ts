@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { Goal } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -23,11 +24,13 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type GoalUpdateFormInputValues = {
     name?: string;
+    title?: string;
     description?: string;
     deadline?: string;
 };
 export declare type GoalUpdateFormValidationValues = {
     name?: ValidationFunction<string>;
+    title?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     deadline?: ValidationFunction<string>;
 };
@@ -35,6 +38,7 @@ export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes
 export declare type GoalUpdateFormOverridesProps = {
     GoalUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     deadline?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
@@ -42,7 +46,7 @@ export declare type GoalUpdateFormProps = React.PropsWithChildren<{
     overrides?: GoalUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    goal?: any;
+    goal?: Goal;
     onSubmit?: (fields: GoalUpdateFormInputValues) => GoalUpdateFormInputValues;
     onSuccess?: (fields: GoalUpdateFormInputValues) => void;
     onError?: (fields: GoalUpdateFormInputValues, errorMessage: string) => void;

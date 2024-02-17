@@ -1,5 +1,9 @@
 "use client";
-import React, { type FunctionComponent, HTMLAttributes } from "react";
+import React, {
+	type FunctionComponent,
+	HTMLAttributes,
+	useEffect,
+} from "react";
 import { Link, Button } from "@nextui-org/react";
 import {
 	Navbar,
@@ -10,12 +14,17 @@ import {
 	NavbarMenu,
 	NavbarMenuItem,
 } from "@nextui-org/react";
+import { Amplify } from "aws-amplify";
+import awsConfig from "@/aws-exports";
 
 interface AppWrapperProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const AppWrapper: FunctionComponent<AppWrapperProps> = ({
 	children,
 }) => {
+	useEffect(() => {
+		Amplify.configure(awsConfig);
+	}, []);
 	return (
 		<div className="w-full h-full">
 			<Navbar>
