@@ -1,0 +1,21 @@
+{
+    "appName": "shamefully",
+    "roleName": "pinpointLambdaRolec103124e",
+    "cloudformationPolicyName": "cloudformationPolicyc103124e",
+    "cloudWatchPolicyName": "cloudWatchPolicyc103124e",
+    "pinpointPolicyName": "pinpointPolicyc103124e",
+    "authPolicyName": "pinpoint_amplify_c103124e",
+    "unauthPolicyName": "pinpoint_amplify_c103124e",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}
