@@ -35,6 +35,12 @@
       },
       "storage": {
         "shamefully": {}
+      },
+      "function": {
+        "shamefullyNewUser": {
+          "deploymentBucketName": "amplify-shamefully-staging-120300-deployment",
+          "s3Key": "amplify-builds/shamefullyNewUser-4c507472387575765972-build.zip"
+        }
       }
     }
   }

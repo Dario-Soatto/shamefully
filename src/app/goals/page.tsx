@@ -1,7 +1,6 @@
 "use client";
 
 import React, { type FC, useState, useEffect, HTMLAttributes } from "react";
-import Spline from "@splinetool/react-spline";
 import { Input, Textarea } from "@nextui-org/react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -10,12 +9,7 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Checkbox } from "@nextui-org/react";
 import { generateClient } from "aws-amplify/api";
-import {
-	createCheckIn,
-	createGoal,
-	createShamer,
-	createUser,
-} from "@/graphql/mutations";
+import { createCheckIn, createGoal, createShamer } from "@/graphql/mutations";
 import {
 	CheckInType,
 	CreateCheckInInput,
@@ -73,44 +67,9 @@ const GoalsPage: FC<GoalsPageProps> = () => {
 	}, []);
 
 	return (
-		<div className="w-full h-full flex flex-col justify-start py-20 pb-40 items-center gap-20">
+		<div className="w-full h-full flex flex-col justify-start  pb-40 items-center gap-20 p-5">
 			{/* <img src="/logo1.png" alt="logo" className="w-1/4" /> */}
 
-			{!splineLoaded && <l-spiral size={45} color="coral"></l-spiral>}
-			<Spline
-				// style={{
-				// 	background:
-				// 		"radial-gradient(circle, rgba(0,0,0,0.2	) 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0) 100%)",
-				// }}
-				className={twMerge(
-					"!h-[60vh] opacity-0 transition-all  duration-300 -mt-40",
-					splineLoaded && "opacity-100 -mt-0 "
-				)}
-				onLoad={() => {
-					console.log("Spline loaded");
-					setSplineLoaded(true);
-				}}
-				scene="https://prod.spline.design/DUCYHHZaaS0eoNm1/scene.splinecode"
-			/>
-
-			<Button
-				size="lg"
-				color="primary"
-				onClick={() => {
-					(ref1.current as any)?.scrollIntoView({ behavior: "smooth" });
-				}}
-			>
-				Get Started
-			</Button>
-			{/* <Button
-				onClick={() => {
-					fetch("/api/send-text").then((res) => {
-						console.log("res:", res);
-					});
-				}}
-			>
-				Test
-			</Button> */}
 			<div
 				ref={ref1}
 				className="w-full h-full justify-center items-center flex pt-20"
@@ -167,7 +126,7 @@ const AddGoal = ({ setGoal }: AddGoalProps) => {
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, y: 50 }}
 			whileInView={{ opacity: 1, y: 0 }}
-			className="w-5/6 h-fit rounded-lg p-5 gap-5 m-5 bg-white outline-zinc-200 outline  flex justify-start items-center flex-col  shadow-lg hover:shadow-xl transition-all duration-300"
+			className="lg:w-5/6 w-full h-fit rounded-lg p-5 gap-5 m-5 bg-white outline-zinc-200 outline  flex justify-start items-center flex-col  shadow-lg hover:shadow-xl transition-all duration-300"
 			onSubmit={async (e) => {
 				e.preventDefault();
 				console.log("goalInputForm:", goalInputForm);
@@ -307,9 +266,10 @@ const AddGoal = ({ setGoal }: AddGoalProps) => {
 				color="primary"
 				type="submit"
 				disabled={!allowShaming}
-				className="disabled:opacity-50 disabled:hover:opacity-50 "
+				className="disabled:opacity-50 disabled:hover:opacity-50 whitespace-pre w-5/6 flex flex-col lg:flex-row justify-center items-center gap-0 p-3 "
 			>
-				Let The Shaming Begin! (Create a Goal)
+				<span>Let The Shaming Begin!</span>
+				<span className="hidden lg:flex">(Create a Goal)</span>
 			</Button>
 		</motion.form>
 	);

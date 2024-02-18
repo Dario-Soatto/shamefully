@@ -11,6 +11,8 @@ import { BsX, BsCheck } from "react-icons/bs";
 import { getUser } from "@/graphql/queries";
 import { CheckIn } from "../API";
 import { updateCheckIn } from "@/graphql/mutations";
+import { twMerge } from "tailwind-merge";
+import Spline from "@splinetool/react-spline";
 
 const client = generateClient({});
 
@@ -25,6 +27,7 @@ type HomePageProps = {
 
 const HomePage: FC<HomePageProps> = () => {
 	const [user, setUser] = useState<User>({} as User);
+	const [splineLoaded, setSplineLoaded] = useState(false);
 
 	useEffect(() => {
 		async function getLoader() {
@@ -50,8 +53,10 @@ const HomePage: FC<HomePageProps> = () => {
 			});
 	}, []);
 
-	const currentCheckIns = user.checkIns?.items?.map((checkIn) => {
-		if (!checkIn) return null;
+	const currentCheckIns: any = [];
+
+	user.checkIns?.items?.forEach((checkIn) => {
+		if (!checkIn) return;
 
 		const isDeadlineSoon = (deadline: string) => {
 			const deadlineDate = new Date(deadline).getTime();
@@ -60,13 +65,17 @@ const HomePage: FC<HomePageProps> = () => {
 			return deadlineDate - now < oneDayInMs && deadlineDate - now > 0;
 		};
 
-		if (!isDeadlineSoon(checkIn.deadline as string)) return null;
+		if (!isDeadlineSoon(checkIn.deadline as string)) return;
 
-		if (checkIn.status === "SUCCESSFUL" || checkIn.status === "FAILED")
-			return null;
+		if (checkIn.status === "SUCCESSFUL" || checkIn.status === "FAILED") return;
 
-		return <CheckInComponent key={checkIn.id} checkIn={checkIn} />;
+		currentCheckIns.append(
+			<CheckInComponent key={checkIn.id} checkIn={checkIn} />
+		);
 	});
+
+	console.log("length", currentCheckIns?.length);
+
 	return (
 		<div className="w-full h-full flex flex-col justify-start py-20 pb-40 items-center gap-20">
 			{user.id ? (
@@ -82,10 +91,26 @@ const HomePage: FC<HomePageProps> = () => {
 					</div>
 					<div className="flex flex-col gap-4 w-5/6">
 						{currentCheckIns?.length === 0 ? (
-							<div className="w-full flex flex-col gap-4">
+							<div className="w-full h-full flex flex-col justify-center items-center gap-4">
+								{!splineLoaded && <l-spiral size={45} color="coral"></l-spiral>}
+								<Spline
+									// style={{
+									// 	background:
+									// 		"radial-gradient(circle, rgba(0,0,0,0.2	) 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0) 100%)",
+									// }}
+									className={twMerge(
+										"!h-[50vh] opacity-0 transition-all  duration-300 -mt-40",
+										splineLoaded && "opacity-100 -mt-0 "
+									)}
+									onLoad={() => {
+										console.log("Spline loaded");
+										setSplineLoaded(true);
+									}}
+									scene="https://prod.spline.design/DUCYHHZaaS0eoNm1/scene.splinecode"
+								/>
 								Nothing to see here, create some goals to get started!
-								<Button>
-									<a href="/goals">Create a new goal</a>
+								<Button color="primary">
+									<a href="/goals">Get Started</a>
 								</Button>
 							</div>
 						) : (
@@ -95,14 +120,14 @@ const HomePage: FC<HomePageProps> = () => {
 						)}
 					</div>
 
-					<div className="flex flex-col gap-4 w-5/6">
+					{/* <div className="flex flex-col gap-4 w-5/6">
 						{user.goals?.items?.map((goal) => {
 							if (!goal) return null;
 							console.log(goal);
 
 							return <GoalComponent key={goal.id} goal={goal} />;
 						})}
-					</div>
+					</div> */}
 				</motion.div>
 			) : (
 				<l-spiral size={45} color="coral"></l-spiral>

@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 		// Assuming these are the correct fields you want to send, replace <string> placeholders with actual values or variables.
 		const bodyObject = {
 			phone_number: phoneNumber, // Use the variable directly
-			task: "scold the user for missing their goals, continue the conversation in a stern but playful manner to encourage them to finish their task", // Replace <string> with actual task or variable
+			task: "scold the user for missing their goals, continue the conversation in a stern but playful manner to encourage them to finish their task. Speak like you're from texas and be a little rude please :)", // Replace <string> with actual task or variable
 			model: "turbo", // Replace <string> with actual model or variable
 			answered_by_enabled: true,
 			reduce_latency: true,

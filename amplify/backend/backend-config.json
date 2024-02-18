@@ -54,6 +54,24 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "shamefullyNewUser": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "shamefully"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "notifications": {
     "shamefully": {
       "channels": [
@@ -84,6 +102,22 @@
         {
           "category": "analytics",
           "resourceName": "Pinpoint"
+        }
+      ]
+    },
+    "AMPLIFY_function_shamefullyNewUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "shamefullyNewUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_shamefullyNewUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "shamefullyNewUser"
         }
       ]
     },
