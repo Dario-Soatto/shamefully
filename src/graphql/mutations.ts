@@ -23,6 +23,64 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -40,7 +98,64 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -58,6 +173,66 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -67,6 +242,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
+    strikes
     id
     createdAt
     updatedAt
@@ -92,6 +268,64 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -109,7 +343,64 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -127,6 +418,66 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -136,6 +487,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
+    strikes
     id
     createdAt
     updatedAt
@@ -161,6 +513,64 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -178,7 +588,64 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -196,6 +663,66 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -205,6 +732,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       nextToken
       __typename
     }
+    strikes
     id
     createdAt
     updatedAt
@@ -230,17 +758,120 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -252,7 +883,64 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -270,6 +958,66 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -307,17 +1055,120 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -329,7 +1180,64 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -347,6 +1255,66 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -384,17 +1352,120 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -406,7 +1477,64 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -424,6 +1552,66 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -461,23 +1649,128 @@ export const createCheckIn = /* GraphQL */ `mutation CreateCheckIn(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
       __typename
     }
     deadline
+    status
+    icon
     parentGoal {
       name
       title
@@ -488,16 +1781,139 @@ export const createCheckIn = /* GraphQL */ `mutation CreateCheckIn(
         lastName
         email
         phoneNumber
+        goals {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        associatedShames {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        strikes
         id
         createdAt
         updatedAt
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       shamers {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -537,23 +1953,128 @@ export const updateCheckIn = /* GraphQL */ `mutation UpdateCheckIn(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
       __typename
     }
     deadline
+    status
+    icon
     parentGoal {
       name
       title
@@ -564,16 +2085,139 @@ export const updateCheckIn = /* GraphQL */ `mutation UpdateCheckIn(
         lastName
         email
         phoneNumber
+        goals {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        associatedShames {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        strikes
         id
         createdAt
         updatedAt
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       shamers {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -613,23 +2257,128 @@ export const deleteCheckIn = /* GraphQL */ `mutation DeleteCheckIn(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
       __typename
     }
     deadline
+    status
+    icon
     parentGoal {
       name
       title
@@ -640,16 +2389,139 @@ export const deleteCheckIn = /* GraphQL */ `mutation DeleteCheckIn(
         lastName
         email
         phoneNumber
+        goals {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        associatedShames {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        strikes
         id
         createdAt
         updatedAt
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       shamers {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -689,6 +2561,64 @@ export const createShamer = /* GraphQL */ `mutation CreateShamer(
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -706,7 +2636,64 @@ export const createShamer = /* GraphQL */ `mutation CreateShamer(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -724,17 +2711,120 @@ export const createShamer = /* GraphQL */ `mutation CreateShamer(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -766,6 +2856,64 @@ export const updateShamer = /* GraphQL */ `mutation UpdateShamer(
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -783,7 +2931,64 @@ export const updateShamer = /* GraphQL */ `mutation UpdateShamer(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -801,17 +3006,120 @@ export const updateShamer = /* GraphQL */ `mutation UpdateShamer(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -843,6 +3151,64 @@ export const deleteShamer = /* GraphQL */ `mutation DeleteShamer(
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -860,7 +3226,64 @@ export const deleteShamer = /* GraphQL */ `mutation DeleteShamer(
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -878,17 +3301,120 @@ export const deleteShamer = /* GraphQL */ `mutation DeleteShamer(
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt

@@ -35,6 +35,8 @@ export default function CheckInUpdateForm(props) {
     type: "",
     description: "",
     deadline: "",
+    status: "",
+    icon: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [type, setType] = React.useState(initialValues.type);
@@ -42,6 +44,8 @@ export default function CheckInUpdateForm(props) {
     initialValues.description
   );
   const [deadline, setDeadline] = React.useState(initialValues.deadline);
+  const [status, setStatus] = React.useState(initialValues.status);
+  const [icon, setIcon] = React.useState(initialValues.icon);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = checkInRecord
@@ -51,6 +55,8 @@ export default function CheckInUpdateForm(props) {
     setType(cleanValues.type);
     setDescription(cleanValues.description);
     setDeadline(cleanValues.deadline);
+    setStatus(cleanValues.status);
+    setIcon(cleanValues.icon);
     setErrors({});
   };
   const [checkInRecord, setCheckInRecord] = React.useState(checkInModelProp);
@@ -74,6 +80,8 @@ export default function CheckInUpdateForm(props) {
     type: [],
     description: [],
     deadline: [],
+    status: [],
+    icon: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -122,6 +130,8 @@ export default function CheckInUpdateForm(props) {
           type: type ?? null,
           description: description ?? null,
           deadline: deadline ?? null,
+          status: status ?? null,
+          icon: icon ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -186,6 +196,8 @@ export default function CheckInUpdateForm(props) {
               type,
               description,
               deadline,
+              status,
+              icon,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -213,6 +225,8 @@ export default function CheckInUpdateForm(props) {
               type: value,
               description,
               deadline,
+              status,
+              icon,
             };
             const result = onChange(modelFields);
             value = result?.type ?? value;
@@ -271,6 +285,8 @@ export default function CheckInUpdateForm(props) {
               type,
               description: value,
               deadline,
+              status,
+              icon,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -300,6 +316,8 @@ export default function CheckInUpdateForm(props) {
               type,
               description,
               deadline: value,
+              status,
+              icon,
             };
             const result = onChange(modelFields);
             value = result?.deadline ?? value;
@@ -313,6 +331,64 @@ export default function CheckInUpdateForm(props) {
         errorMessage={errors.deadline?.errorMessage}
         hasError={errors.deadline?.hasError}
         {...getOverrideProps(overrides, "deadline")}
+      ></TextField>
+      <TextField
+        label="Status"
+        isRequired={false}
+        isReadOnly={false}
+        value={status}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              type,
+              description,
+              deadline,
+              status: value,
+              icon,
+            };
+            const result = onChange(modelFields);
+            value = result?.status ?? value;
+          }
+          if (errors.status?.hasError) {
+            runValidationTasks("status", value);
+          }
+          setStatus(value);
+        }}
+        onBlur={() => runValidationTasks("status", status)}
+        errorMessage={errors.status?.errorMessage}
+        hasError={errors.status?.hasError}
+        {...getOverrideProps(overrides, "status")}
+      ></TextField>
+      <TextField
+        label="Icon"
+        isRequired={false}
+        isReadOnly={false}
+        value={icon}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              type,
+              description,
+              deadline,
+              status,
+              icon: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.icon ?? value;
+          }
+          if (errors.icon?.hasError) {
+            runValidationTasks("icon", value);
+          }
+          setIcon(value);
+        }}
+        onBlur={() => runValidationTasks("icon", icon)}
+        errorMessage={errors.icon?.errorMessage}
+        hasError={errors.icon?.hasError}
+        {...getOverrideProps(overrides, "icon")}
       ></TextField>
       <Flex
         justifyContent="space-between"

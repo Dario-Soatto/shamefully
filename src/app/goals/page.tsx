@@ -34,6 +34,7 @@ import { BsX, BsPlus } from "react-icons/bs";
 import { toast } from "react-toastify";
 
 import { v4 as uuidv4 } from "uuid";
+import { twMerge } from "tailwind-merge";
 
 const client = generateClient({});
 
@@ -42,6 +43,7 @@ interface HomePageProps {}
 export const HomePage: FunctionComponent<HomePageProps> = () => {
 	const [goal, setGoal] = useState<Goal>({} as Goal);
 	const [finished, setFinished] = useState(false);
+	const [splineLoaded, setSplineLoaded] = useState(false);
 
 	const ref1 = React.useRef(null);
 	const ref2 = React.useRef(null);
@@ -60,12 +62,32 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 		}
 	}, [finished]);
 
+	useEffect(() => {
+		async function getLoader() {
+			const { spiral } = await import("ldrs");
+			spiral.register();
+		}
+		getLoader();
+	}, []);
+
 	return (
 		<div className="w-full h-full flex flex-col justify-start py-20 pb-40 items-center gap-20">
 			{/* <img src="/logo1.png" alt="logo" className="w-1/4" /> */}
 
+			{!splineLoaded && <l-spiral size={45} color="coral"></l-spiral>}
 			<Spline
-				className="!h-[50vh]"
+				// style={{
+				// 	background:
+				// 		"radial-gradient(circle, rgba(0,0,0,0.2	) 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0) 100%)",
+				// }}
+				className={twMerge(
+					"!h-[60vh] opacity-0 transition-all  duration-300 -mt-40",
+					splineLoaded && "opacity-100 -mt-0 "
+				)}
+				onLoad={() => {
+					console.log("Spline loaded");
+					setSplineLoaded(true);
+				}}
 				scene="https://prod.spline.design/DUCYHHZaaS0eoNm1/scene.splinecode"
 			/>
 
@@ -157,6 +179,7 @@ const AddGoal = ({ setGoal }: AddGoalProps) => {
 								description: goalInputForm["description"],
 								deadline: goalInputForm["deadline"],
 								goalCreatorId: "demo",
+								userGoalsId: "demo",
 							} satisfies CreateGoalInput,
 						},
 					})
@@ -329,19 +352,77 @@ const AddShamers = ({ goal, setFinished }: AddShamersProps) => {
 					toast.error("Please select a frequency!");
 					return;
 				}
+
+				if (!goal.deadline) {
+					console.error("No goal deadline found");
+					return;
+				}
+
 				console.log("checkInInputForm:", checkInInputForm);
 				console.log("shamers:", shamers);
 
-				await client.graphql({
-					query: createCheckIn,
-					variables: {
-						input: {
-							id: goal.id,
-							type: checkInInputForm["type"] ?? CheckInType.CLICK,
-							goalCheckInsId: goal.id,
-						} satisfies CreateCheckInInput,
-					},
-				});
+				function generateDateSeries(endDateStr: string, frequency: number) {
+					const result = [];
+					const endDate = new Date(endDateStr);
+					let currentDate = new Date();
+
+					while (currentDate <= endDate) {
+						result.push(currentDate.toISOString());
+						// Add frequency days to the current date
+						currentDate = new Date(
+							currentDate.setDate(currentDate.getDate() + frequency)
+						);
+					}
+
+					console.log("result:", result);
+					return result;
+				}
+				const emojis = [
+					"😀",
+					"😂",
+					"🥺",
+					"😍",
+					"😒",
+					"👍",
+					"🚀",
+					"🌈",
+					"🎉",
+					"💔",
+				];
+
+				generateDateSeries(goal.deadline, checkInFrequency).forEach(
+					async (date, index) => {
+						console.log("date:", date);
+						await client
+							.graphql({
+								query: createCheckIn,
+								variables: {
+									input: {
+										type: checkInInputForm["type"] ?? CheckInType.CLICK,
+										goalCheckInsId: goal.id,
+										title: `${goal.title} check in ${index + 1}/${
+											generateDateSeries(
+												goal.deadline as string,
+												checkInFrequency
+											).length
+										}`,
+										deadline: date,
+										// Replace with actual Id
+
+										icon: emojis[Math.floor(Math.random() * emojis.length)],
+										userCheckInsId: "demo",
+										checkInCreatorId: "demo",
+									} satisfies CreateCheckInInput,
+								},
+							})
+							.then((res) => {
+								console.log(res);
+							})
+							.catch((err) => {
+								console.error(err);
+							});
+					}
+				);
 
 				await shamers.forEach(async (shamer) => {
 					console.log("shamer:", shamer);

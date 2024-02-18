@@ -11,6 +11,7 @@ type User @model {
 	goals: [Goal] @hasMany
 	checkIns: [CheckIn] @hasMany
 	associatedShames: [Shamer] @hasMany
+	strikes: Int
 }
 
 type Goal @model {
@@ -30,6 +31,8 @@ type CheckIn @model {
 	description: String
 	creator: User @hasOne
 	deadline: AWSDateTime
+	status: String
+	icon: String
 	parentGoal: Goal @belongsTo
 }
 

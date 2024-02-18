@@ -29,6 +29,7 @@ export default function UserUpdateForm(props) {
     lastName: "",
     email: "",
     phoneNumber: "",
+    strikes: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
@@ -36,6 +37,7 @@ export default function UserUpdateForm(props) {
   const [phoneNumber, setPhoneNumber] = React.useState(
     initialValues.phoneNumber
   );
+  const [strikes, setStrikes] = React.useState(initialValues.strikes);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
@@ -45,6 +47,7 @@ export default function UserUpdateForm(props) {
     setLastName(cleanValues.lastName);
     setEmail(cleanValues.email);
     setPhoneNumber(cleanValues.phoneNumber);
+    setStrikes(cleanValues.strikes);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -68,6 +71,7 @@ export default function UserUpdateForm(props) {
     lastName: [],
     email: [],
     phoneNumber: [],
+    strikes: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -99,6 +103,7 @@ export default function UserUpdateForm(props) {
           lastName: lastName ?? null,
           email: email ?? null,
           phoneNumber: phoneNumber ?? null,
+          strikes: strikes ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -163,6 +168,7 @@ export default function UserUpdateForm(props) {
               lastName,
               email,
               phoneNumber,
+              strikes,
             };
             const result = onChange(modelFields);
             value = result?.firstName ?? value;
@@ -190,6 +196,7 @@ export default function UserUpdateForm(props) {
               lastName: value,
               email,
               phoneNumber,
+              strikes,
             };
             const result = onChange(modelFields);
             value = result?.lastName ?? value;
@@ -217,6 +224,7 @@ export default function UserUpdateForm(props) {
               lastName,
               email: value,
               phoneNumber,
+              strikes,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -244,6 +252,7 @@ export default function UserUpdateForm(props) {
               lastName,
               email,
               phoneNumber: value,
+              strikes,
             };
             const result = onChange(modelFields);
             value = result?.phoneNumber ?? value;
@@ -257,6 +266,38 @@ export default function UserUpdateForm(props) {
         errorMessage={errors.phoneNumber?.errorMessage}
         hasError={errors.phoneNumber?.hasError}
         {...getOverrideProps(overrides, "phoneNumber")}
+      ></TextField>
+      <TextField
+        label="Strikes"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={strikes}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              email,
+              phoneNumber,
+              strikes: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.strikes ?? value;
+          }
+          if (errors.strikes?.hasError) {
+            runValidationTasks("strikes", value);
+          }
+          setStrikes(value);
+        }}
+        onBlur={() => runValidationTasks("strikes", strikes)}
+        errorMessage={errors.strikes?.errorMessage}
+        hasError={errors.strikes?.hasError}
+        {...getOverrideProps(overrides, "strikes")}
       ></TextField>
       <Flex
         justifyContent="space-between"

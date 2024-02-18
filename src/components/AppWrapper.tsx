@@ -30,26 +30,20 @@ export const AppWrapper: FunctionComponent<AppWrapperProps> = ({
 					<NavbarBrand className="flex gap-5">
 						<img src="/logo2.png" className="w-8" />
 						<p className="font-bold text-inherit text-yellow-500">
-							{" "}
 							Shameful.ly
 						</p>
 					</NavbarBrand>
 					<NavbarContent className="hidden sm:flex gap-4" justify="center">
 						<NavbarItem>
-							<Link color="foreground" href="/home">
+							<Link color="foreground" href="/">
 								Home
-							</Link>
-						</NavbarItem>
-						<NavbarItem isActive>
-							<Link href="goals" aria-current="page">
-								Friends
 							</Link>
 						</NavbarItem>
 					</NavbarContent>
 					<NavbarContent justify="end">
 						<NavbarItem>
-							<Button as={Link} color="primary" href="#" variant="flat">
-								Get Started
+							<Button as={Link} color="primary" href="/goals">
+								Create New Goal
 							</Button>
 						</NavbarItem>
 					</NavbarContent>

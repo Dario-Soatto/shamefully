@@ -26,12 +26,16 @@ export declare type CheckInCreateFormInputValues = {
     type?: string;
     description?: string;
     deadline?: string;
+    status?: string;
+    icon?: string;
 };
 export declare type CheckInCreateFormValidationValues = {
     title?: ValidationFunction<string>;
     type?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     deadline?: ValidationFunction<string>;
+    status?: ValidationFunction<string>;
+    icon?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CheckInCreateFormOverridesProps = {
@@ -40,6 +44,8 @@ export declare type CheckInCreateFormOverridesProps = {
     type?: PrimitiveOverrideProps<SelectFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     deadline?: PrimitiveOverrideProps<TextFieldProps>;
+    status?: PrimitiveOverrideProps<TextFieldProps>;
+    icon?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type CheckInCreateFormProps = React.PropsWithChildren<{
     overrides?: CheckInCreateFormOverridesProps | undefined | null;

@@ -1,0 +1,17 @@
+{
+  "resourceName": "shamefully",
+  "policyUUID": "ec962095",
+  "bucketName": "shamefully1",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

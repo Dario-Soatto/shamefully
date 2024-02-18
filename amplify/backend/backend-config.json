@@ -111,5 +111,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "shamefully": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
   }
 }

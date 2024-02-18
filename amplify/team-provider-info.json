@@ -32,6 +32,9 @@
           "Id": "e67493508dc649cf8d5b126921c73afb",
           "Region": "us-west-2"
         }
+      },
+      "storage": {
+        "shamefully": {}
       }
     }
   }

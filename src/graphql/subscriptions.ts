@@ -20,6 +20,64 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -37,7 +95,64 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -55,6 +170,66 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -64,6 +239,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       nextToken
       __typename
     }
+    strikes
     id
     createdAt
     updatedAt
@@ -86,6 +262,64 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -103,7 +337,64 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -121,6 +412,66 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -130,6 +481,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       nextToken
       __typename
     }
+    strikes
     id
     createdAt
     updatedAt
@@ -152,6 +504,64 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -169,7 +579,64 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -187,6 +654,66 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -196,6 +723,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       nextToken
       __typename
     }
+    strikes
     id
     createdAt
     updatedAt
@@ -218,17 +746,120 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -240,7 +871,64 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -258,6 +946,66 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -292,17 +1040,120 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -314,7 +1165,64 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -332,6 +1240,66 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -366,17 +1334,120 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -388,7 +1459,64 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -406,6 +1534,66 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
         name
         phoneNumber
         email
+        shamingGoal {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamingCheckIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        account {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         userAssociatedShamesId
@@ -440,23 +1628,128 @@ export const onCreateCheckIn = /* GraphQL */ `subscription OnCreateCheckIn($filt
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
       __typename
     }
     deadline
+    status
+    icon
     parentGoal {
       name
       title
@@ -467,16 +1760,139 @@ export const onCreateCheckIn = /* GraphQL */ `subscription OnCreateCheckIn($filt
         lastName
         email
         phoneNumber
+        goals {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        associatedShames {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        strikes
         id
         createdAt
         updatedAt
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       shamers {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -513,23 +1929,128 @@ export const onUpdateCheckIn = /* GraphQL */ `subscription OnUpdateCheckIn($filt
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
       __typename
     }
     deadline
+    status
+    icon
     parentGoal {
       name
       title
@@ -540,16 +2061,139 @@ export const onUpdateCheckIn = /* GraphQL */ `subscription OnUpdateCheckIn($filt
         lastName
         email
         phoneNumber
+        goals {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        associatedShames {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        strikes
         id
         createdAt
         updatedAt
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       shamers {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -586,23 +2230,128 @@ export const onDeleteCheckIn = /* GraphQL */ `subscription OnDeleteCheckIn($filt
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
       __typename
     }
     deadline
+    status
+    icon
     parentGoal {
       name
       title
@@ -613,16 +2362,139 @@ export const onDeleteCheckIn = /* GraphQL */ `subscription OnDeleteCheckIn($filt
         lastName
         email
         phoneNumber
+        goals {
+          items {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        associatedShames {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        strikes
         id
         createdAt
         updatedAt
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       shamers {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -659,6 +2531,64 @@ export const onCreateShamer = /* GraphQL */ `subscription OnCreateShamer($filter
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -676,7 +2606,64 @@ export const onCreateShamer = /* GraphQL */ `subscription OnCreateShamer($filter
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -694,17 +2681,120 @@ export const onCreateShamer = /* GraphQL */ `subscription OnCreateShamer($filter
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -733,6 +2823,64 @@ export const onUpdateShamer = /* GraphQL */ `subscription OnUpdateShamer($filter
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -750,7 +2898,64 @@ export const onUpdateShamer = /* GraphQL */ `subscription OnUpdateShamer($filter
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -768,17 +2973,120 @@ export const onUpdateShamer = /* GraphQL */ `subscription OnUpdateShamer($filter
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
@@ -807,6 +3115,64 @@ export const onDeleteShamer = /* GraphQL */ `subscription OnDeleteShamer($filter
         title
         description
         deadline
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        checkIns {
+          items {
+            id
+            title
+            type
+            description
+            deadline
+            status
+            icon
+            createdAt
+            updatedAt
+            userCheckInsId
+            goalCheckInsId
+            shamerShamingCheckInsId
+            checkInCreatorId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        shamers {
+          items {
+            id
+            name
+            phoneNumber
+            email
+            createdAt
+            updatedAt
+            userAssociatedShamesId
+            goalShamersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         id
         createdAt
         updatedAt
@@ -824,7 +3190,64 @@ export const onDeleteShamer = /* GraphQL */ `subscription OnDeleteShamer($filter
         title
         type
         description
+        creator {
+          firstName
+          lastName
+          email
+          phoneNumber
+          goals {
+            nextToken
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          associatedShames {
+            nextToken
+            __typename
+          }
+          strikes
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
         deadline
+        status
+        icon
+        parentGoal {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         createdAt
         updatedAt
         userCheckInsId
@@ -842,17 +3265,120 @@ export const onDeleteShamer = /* GraphQL */ `subscription OnDeleteShamer($filter
       email
       phoneNumber
       goals {
+        items {
+          name
+          title
+          description
+          deadline
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          checkIns {
+            nextToken
+            __typename
+          }
+          shamers {
+            nextToken
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          userGoalsId
+          shamerShamingGoalId
+          goalCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       checkIns {
+        items {
+          id
+          title
+          type
+          description
+          creator {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          deadline
+          status
+          icon
+          parentGoal {
+            name
+            title
+            description
+            deadline
+            id
+            createdAt
+            updatedAt
+            userGoalsId
+            shamerShamingGoalId
+            goalCreatorId
+            __typename
+          }
+          createdAt
+          updatedAt
+          userCheckInsId
+          goalCheckInsId
+          shamerShamingCheckInsId
+          checkInCreatorId
+          __typename
+        }
         nextToken
         __typename
       }
       associatedShames {
+        items {
+          id
+          name
+          phoneNumber
+          email
+          shamingGoal {
+            nextToken
+            __typename
+          }
+          shamingCheckIns {
+            nextToken
+            __typename
+          }
+          account {
+            firstName
+            lastName
+            email
+            phoneNumber
+            strikes
+            id
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          userAssociatedShamesId
+          goalShamersId
+          __typename
+        }
         nextToken
         __typename
       }
+      strikes
       id
       createdAt
       updatedAt
