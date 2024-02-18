@@ -58,7 +58,7 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 			{/* <img src="/logo1.png" alt="logo" className="w-1/4" /> */}
 
 			<Spline
-				className="h-[50vh]"
+				className="!h-[50vh]"
 				scene="https://prod.spline.design/DUCYHHZaaS0eoNm1/scene.splinecode"
 			/>
 
@@ -90,8 +90,8 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 				ref={ref2}
 				className="w-full h-full justify-center items-center flex pt-20 "
 			>
-				{/* {goal.id && <AddShamers goal={goal} />} */}
-				<AddShamers goal={goal} />
+				{goal.id && <AddShamers goal={goal} />}
+				{/* <AddShamers goal={goal} /> */}
 			</div>
 
 			<div

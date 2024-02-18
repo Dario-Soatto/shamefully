@@ -10,9 +10,6 @@ import {
 	NavbarBrand,
 	NavbarContent,
 	NavbarItem,
-	NavbarMenuToggle,
-	NavbarMenu,
-	NavbarMenuItem,
 } from "@nextui-org/react";
 import { Amplify } from "aws-amplify";
 import awsConfig from "@/aws-exports";
@@ -29,17 +26,21 @@ export const AppWrapper: FunctionComponent<AppWrapperProps> = ({
 		<div className="w-full h-full">
 			<Navbar>
 				<Navbar>
-					<NavbarBrand>
-						<p className="font-bold text-inherit"> Shameful.ly</p>
+					<NavbarBrand className="flex gap-5">
+						<img src="/logo2.png" className="w-8" />
+						<p className="font-bold text-inherit text-yellow-500">
+							{" "}
+							Shameful.ly
+						</p>
 					</NavbarBrand>
 					<NavbarContent className="hidden sm:flex gap-4" justify="center">
 						<NavbarItem>
-							<Link color="foreground" href="#">
+							<Link color="foreground" href="/home">
 								Home
 							</Link>
 						</NavbarItem>
 						<NavbarItem isActive>
-							<Link href="#" aria-current="page">
+							<Link href="goals" aria-current="page">
 								Friends
 							</Link>
 						</NavbarItem>
