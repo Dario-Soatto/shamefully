@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-	type FunctionComponent,
-	useState,
-	useEffect,
-	HTMLAttributes,
-} from "react";
+import React, { type FC, useState, useEffect, HTMLAttributes } from "react";
 import { Button } from "@nextui-org/react";
 import { generateClient } from "aws-amplify/api";
 
@@ -19,9 +14,16 @@ import { updateCheckIn } from "@/graphql/mutations";
 
 const client = generateClient({});
 
-interface HomePageProps {}
+type HomePageProps = {
+	params?: {
+		id: string;
+	};
+	searchParams?: {
+		search?: string;
+	};
+};
 
-export const HomePage: FunctionComponent<HomePageProps> = () => {
+const HomePage: FC<HomePageProps> = () => {
 	const [user, setUser] = useState<User>({} as User);
 
 	useEffect(() => {
@@ -76,12 +78,12 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 					className="w-full h-full justify-start items-center flex flex-col gap-10"
 				>
 					<div className="font-bold text-xl text-opacity-90">
-						{`Hey ${user.firstName} ${user.lastName}`}{" "}
+						{`Hey ${user.firstName} ${user.lastName}`}
 					</div>
 					<div className="flex flex-col gap-4 w-5/6">
 						{currentCheckIns?.length === 0 ? (
 							<div className="w-full flex flex-col gap-4">
-								Nothing to see here, let's create some goals!
+								Nothing to see here, create some goals to get started!
 								<Button>
 									<a href="/goals">Create a new goal</a>
 								</Button>

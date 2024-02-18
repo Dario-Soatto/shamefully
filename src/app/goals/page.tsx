@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-	type FunctionComponent,
-	useState,
-	useEffect,
-	HTMLAttributes,
-} from "react";
+import React, { type FC, useState, useEffect, HTMLAttributes } from "react";
 import Spline from "@splinetool/react-spline";
 import { Input, Textarea } from "@nextui-org/react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -38,9 +33,16 @@ import { twMerge } from "tailwind-merge";
 
 const client = generateClient({});
 
-interface HomePageProps {}
+type GoalsPageProps = {
+	params?: {
+		id: string;
+	};
+	searchParams?: {
+		search?: string;
+	};
+};
 
-export const HomePage: FunctionComponent<HomePageProps> = () => {
+const GoalsPage: FC<GoalsPageProps> = () => {
 	const [goal, setGoal] = useState<Goal>({} as Goal);
 	const [finished, setFinished] = useState(false);
 	const [splineLoaded, setSplineLoaded] = useState(false);
@@ -149,7 +151,7 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 	);
 };
 
-export default HomePage;
+export default GoalsPage;
 
 interface AddGoalProps extends HTMLAttributes<HTMLDivElement> {
 	setGoal: React.Dispatch<React.SetStateAction<Goal>>;
@@ -267,7 +269,7 @@ const AddGoal = ({ setGoal }: AddGoalProps) => {
 			<div className="w-full h-fit p-2 flex mobile:flex-col gap-5 items-end">
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
 					<label className="flex flex-col gap-2 text-xs text-opacity-80 w-full">
-						What's your deadline?
+						Set a deadline?
 						<DateTimePicker
 							className="bg-default-200/50 rounded-xl !outline-0 !border-0 !ring-0 w-full"
 							onChange={(e: any) => {
@@ -307,7 +309,7 @@ const AddGoal = ({ setGoal }: AddGoalProps) => {
 				disabled={!allowShaming}
 				className="disabled:opacity-50 disabled:hover:opacity-50 "
 			>
-				I'm Ready to Be Shamed! (Create a Goal)
+				Let The Shaming Begin! (Create a Goal)
 			</Button>
 		</motion.form>
 	);
@@ -449,7 +451,7 @@ const AddShamers = ({ goal, setFinished }: AddShamersProps) => {
 		>
 			<div className="flex flex-col justify-center items-center">
 				<span className="font-bold text-lg">{goal.title}?</span>
-				<span>Let's Bring on the Shame</span>
+				<span>Bring on the Shame</span>
 			</div>
 			<div className="w-full h-fit p-2 flex mobile:flex-col gap-5 justify-center items-end">
 				<label className="flex flex-col gap-2 text-xs text-opacity-80 w-full">
