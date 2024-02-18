@@ -101,20 +101,28 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 				{/* <AddShamers goal={goal} /> */}
 			</div>
 
-			<div
+			<motion.div
+				initial={{ opacity: 0, y: 50 }}
+				animate={{ opacity: 1, y: 0 }}
+				exit={{ opacity: 0, y: 50 }}
+				whileInView={{ opacity: 1, y: 0 }}
 				ref={ref3}
 				className="w-full h-full justify-center items-center flex flex-col pt-20 gap-5 font-bold text-3xl"
 			>
 				{finished && (
 					<>
 						{"Let's get shaming!"}
-						<img
+						<motion.img
+							initial={{ opacity: 0, y: 50 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: 50 }}
+							whileInView={{ opacity: 1, y: 0 }}
 							src="/irritated_icon.gif"
 							className="rounded-full animate-in rotate-12 hover:-rotate-12 transition-all duration-300"
 						/>
 					</>
 				)}
-			</div>
+			</motion.div>
 		</div>
 	);
 };
