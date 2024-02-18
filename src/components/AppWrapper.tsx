@@ -12,6 +12,7 @@ import {
 	NavbarItem,
 } from "@nextui-org/react";
 import { Amplify } from "aws-amplify";
+import { ToastContainer } from "react-toastify";
 import awsConfig from "@/aws-exports";
 
 interface AppWrapperProps extends HTMLAttributes<HTMLDivElement> {}
@@ -54,6 +55,7 @@ export const AppWrapper: FunctionComponent<AppWrapperProps> = ({
 					</NavbarContent>
 				</Navbar>
 			</Navbar>
+			<ToastContainer />
 
 			{children}
 		</div>

@@ -41,6 +41,7 @@ interface HomePageProps {}
 
 export const HomePage: FunctionComponent<HomePageProps> = () => {
 	const [goal, setGoal] = useState<Goal>({} as Goal);
+	const [finished, setFinished] = useState(false);
 
 	const ref1 = React.useRef(null);
 	const ref2 = React.useRef(null);
@@ -52,6 +53,12 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 			(ref2.current as any)?.scrollIntoView({ behavior: "smooth" });
 		}
 	}, [goal]);
+
+	useEffect(() => {
+		if (finished) {
+			(ref3.current as any)?.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [finished]);
 
 	return (
 		<div className="w-full h-full flex flex-col justify-start py-20 pb-40 items-center gap-20">
@@ -90,7 +97,7 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 				ref={ref2}
 				className="w-full h-full justify-center items-center flex pt-20 "
 			>
-				{goal.id && <AddShamers goal={goal} />}
+				{goal.id && <AddShamers setFinished={setFinished} goal={goal} />}
 				{/* <AddShamers goal={goal} /> */}
 			</div>
 
@@ -98,11 +105,15 @@ export const HomePage: FunctionComponent<HomePageProps> = () => {
 				ref={ref3}
 				className="w-full h-full justify-center items-center flex flex-col pt-20 gap-5 font-bold text-3xl"
 			>
-				Let's get shaming{" "}
-				<img
-					src="/irritated_icon.gif"
-					className="rounded-full animate-in rotate-12 hover:-rotate-12 transition-all duration-300"
-				></img>
+				{finished && (
+					<>
+						{"Let's get shaming!"}
+						<img
+							src="/irritated_icon.gif"
+							className="rounded-full animate-in rotate-12 hover:-rotate-12 transition-all duration-300"
+						/>
+					</>
+				)}
 			</div>
 		</div>
 	);
@@ -274,8 +285,9 @@ const AddGoal = ({ setGoal }: AddGoalProps) => {
 interface AddShamersProps extends HTMLAttributes<HTMLDivElement> {
 	ref?: React.RefObject<HTMLDivElement>;
 	goal: Goal;
+	setFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const AddShamers = ({ goal }: AddShamersProps) => {
+const AddShamers = ({ goal, setFinished }: AddShamersProps) => {
 	const [checkInInputForm, setCheckInInputForm] = useState<CreateCheckInInput>(
 		{}
 	);
@@ -342,6 +354,8 @@ const AddShamers = ({ goal }: AddShamersProps) => {
 						},
 					});
 				});
+
+				setFinished(true);
 			}}
 		>
 			<div className="flex flex-col justify-center items-center">
