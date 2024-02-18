@@ -9,9 +9,9 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createUser } from "../graphql/mutations";
+import { createShamer } from "../graphql/mutations";
 const client = generateClient();
-export default function UserCreateForm(props) {
+export default function ShamerCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -23,30 +23,26 @@ export default function UserCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
+    name: "",
     phoneNumber: "",
+    email: "",
   };
-  const [firstName, setFirstName] = React.useState(initialValues.firstName);
-  const [lastName, setLastName] = React.useState(initialValues.lastName);
-  const [email, setEmail] = React.useState(initialValues.email);
+  const [name, setName] = React.useState(initialValues.name);
   const [phoneNumber, setPhoneNumber] = React.useState(
     initialValues.phoneNumber
   );
+  const [email, setEmail] = React.useState(initialValues.email);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setFirstName(initialValues.firstName);
-    setLastName(initialValues.lastName);
-    setEmail(initialValues.email);
+    setName(initialValues.name);
     setPhoneNumber(initialValues.phoneNumber);
+    setEmail(initialValues.email);
     setErrors({});
   };
   const validations = {
-    firstName: [],
-    lastName: [],
-    email: [],
+    name: [],
     phoneNumber: [],
+    email: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -74,10 +70,9 @@ export default function UserCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          firstName,
-          lastName,
-          email,
+          name,
           phoneNumber,
+          email,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -108,7 +103,7 @@ export default function UserCreateForm(props) {
             }
           });
           await client.graphql({
-            query: createUser.replaceAll("__typename", ""),
+            query: createShamer.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFields,
@@ -128,89 +123,34 @@ export default function UserCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserCreateForm")}
+      {...getOverrideProps(overrides, "ShamerCreateForm")}
       {...rest}
     >
       <TextField
-        label="First name"
+        label="Name"
         isRequired={false}
         isReadOnly={false}
-        value={firstName}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName: value,
-              lastName,
+              name: value,
+              phoneNumber,
               email,
-              phoneNumber,
             };
             const result = onChange(modelFields);
-            value = result?.firstName ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.firstName?.hasError) {
-            runValidationTasks("firstName", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
-          setFirstName(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("firstName", firstName)}
-        errorMessage={errors.firstName?.errorMessage}
-        hasError={errors.firstName?.hasError}
-        {...getOverrideProps(overrides, "firstName")}
-      ></TextField>
-      <TextField
-        label="Last name"
-        isRequired={false}
-        isReadOnly={false}
-        value={lastName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName: value,
-              email,
-              phoneNumber,
-            };
-            const result = onChange(modelFields);
-            value = result?.lastName ?? value;
-          }
-          if (errors.lastName?.hasError) {
-            runValidationTasks("lastName", value);
-          }
-          setLastName(value);
-        }}
-        onBlur={() => runValidationTasks("lastName", lastName)}
-        errorMessage={errors.lastName?.errorMessage}
-        hasError={errors.lastName?.hasError}
-        {...getOverrideProps(overrides, "lastName")}
-      ></TextField>
-      <TextField
-        label="Email"
-        isRequired={false}
-        isReadOnly={false}
-        value={email}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              email: value,
-              phoneNumber,
-            };
-            const result = onChange(modelFields);
-            value = result?.email ?? value;
-          }
-          if (errors.email?.hasError) {
-            runValidationTasks("email", value);
-          }
-          setEmail(value);
-        }}
-        onBlur={() => runValidationTasks("email", email)}
-        errorMessage={errors.email?.errorMessage}
-        hasError={errors.email?.hasError}
-        {...getOverrideProps(overrides, "email")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
         label="Phone number"
@@ -221,10 +161,9 @@ export default function UserCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName,
-              lastName,
-              email,
+              name,
               phoneNumber: value,
+              email,
             };
             const result = onChange(modelFields);
             value = result?.phoneNumber ?? value;
@@ -238,6 +177,32 @@ export default function UserCreateForm(props) {
         errorMessage={errors.phoneNumber?.errorMessage}
         hasError={errors.phoneNumber?.hasError}
         {...getOverrideProps(overrides, "phoneNumber")}
+      ></TextField>
+      <TextField
+        label="Email"
+        isRequired={false}
+        isReadOnly={false}
+        value={email}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              phoneNumber,
+              email: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.email ?? value;
+          }
+          if (errors.email?.hasError) {
+            runValidationTasks("email", value);
+          }
+          setEmail(value);
+        }}
+        onBlur={() => runValidationTasks("email", email)}
+        errorMessage={errors.email?.errorMessage}
+        hasError={errors.email?.hasError}
+        {...getOverrideProps(overrides, "email")}
       ></TextField>
       <Flex
         justifyContent="space-between"

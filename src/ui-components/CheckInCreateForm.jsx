@@ -209,29 +209,34 @@ export default function CheckInCreateForm(props) {
         {...getOverrideProps(overrides, "type")}
       >
         <option
+          children="Click"
+          value="CLICK"
+          {...getOverrideProps(overrides, "typeoption0")}
+        ></option>
+        <option
           children="Photo"
           value="PHOTO"
-          {...getOverrideProps(overrides, "typeoption0")}
+          {...getOverrideProps(overrides, "typeoption1")}
         ></option>
         <option
           children="Text"
           value="TEXT"
-          {...getOverrideProps(overrides, "typeoption1")}
+          {...getOverrideProps(overrides, "typeoption2")}
         ></option>
         <option
           children="Email"
           value="EMAIL"
-          {...getOverrideProps(overrides, "typeoption2")}
+          {...getOverrideProps(overrides, "typeoption3")}
         ></option>
         <option
           children="Phone call"
           value="PHONE_CALL"
-          {...getOverrideProps(overrides, "typeoption3")}
+          {...getOverrideProps(overrides, "typeoption4")}
         ></option>
         <option
           children="Social media post"
           value="SOCIAL_MEDIA_POST"
-          {...getOverrideProps(overrides, "typeoption4")}
+          {...getOverrideProps(overrides, "typeoption5")}
         ></option>
       </SelectField>
       <TextField

@@ -13,6 +13,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -23,6 +24,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -40,19 +42,23 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -75,6 +81,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -83,7 +90,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -107,6 +114,7 @@ export const getGoal = /* GraphQL */ `query GetGoal($id: ID!) {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -115,7 +123,7 @@ export const getGoal = /* GraphQL */ `query GetGoal($id: ID!) {
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -135,19 +143,23 @@ export const getGoal = /* GraphQL */ `query GetGoal($id: ID!) {
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -157,6 +169,7 @@ export const getGoal = /* GraphQL */ `query GetGoal($id: ID!) {
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -177,6 +190,7 @@ export const listGoals = /* GraphQL */ `query ListGoals(
         firstName
         lastName
         email
+        phoneNumber
         id
         createdAt
         updatedAt
@@ -186,7 +200,7 @@ export const listGoals = /* GraphQL */ `query ListGoals(
         nextToken
         __typename
       }
-      partners {
+      shamers {
         nextToken
         __typename
       }
@@ -194,6 +208,7 @@ export const listGoals = /* GraphQL */ `query ListGoals(
       createdAt
       updatedAt
       userGoalsId
+      shamerShamingGoalId
       goalCreatorId
       __typename
     }
@@ -212,6 +227,7 @@ export const getCheckIn = /* GraphQL */ `query GetCheckIn($id: ID!) {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -220,7 +236,7 @@ export const getCheckIn = /* GraphQL */ `query GetCheckIn($id: ID!) {
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -230,10 +246,42 @@ export const getCheckIn = /* GraphQL */ `query GetCheckIn($id: ID!) {
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -257,16 +305,31 @@ export const listCheckIns = /* GraphQL */ `query ListCheckIns(
         firstName
         lastName
         email
+        phoneNumber
         id
         createdAt
         updatedAt
         __typename
       }
       deadline
+      parentGoal {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
       createdAt
       updatedAt
       userCheckInsId
       goalCheckInsId
+      shamerShamingCheckInsId
       checkInCreatorId
       __typename
     }
@@ -278,15 +341,52 @@ export const listCheckIns = /* GraphQL */ `query ListCheckIns(
   APITypes.ListCheckInsQueryVariables,
   APITypes.ListCheckInsQuery
 >;
-export const getUserGoalPartners = /* GraphQL */ `query GetUserGoalPartners($id: ID!) {
-  getUserGoalPartners(id: $id) {
+export const getShamer = /* GraphQL */ `query GetShamer($id: ID!) {
+  getShamer(id: $id) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -295,7 +395,7 @@ export const getUserGoalPartners = /* GraphQL */ `query GetUserGoalPartners($id:
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -304,75 +404,81 @@ export const getUserGoalPartners = /* GraphQL */ `query GetUserGoalPartners($id:
       updatedAt
       __typename
     }
-    goal {
+    createdAt
+    updatedAt
+    userAssociatedShamesId
+    goalShamersId
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetShamerQueryVariables, APITypes.GetShamerQuery>;
+export const listShamers = /* GraphQL */ `query ListShamers(
+  $filter: ModelShamerFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listShamers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
       name
-      title
-      description
-      deadline
-      creator {
+      phoneNumber
+      email
+      shamingGoal {
+        nextToken
+        __typename
+      }
+      shamingCheckIns {
+        nextToken
+        __typename
+      }
+      account {
         firstName
         lastName
         email
+        phoneNumber
         id
         createdAt
         updatedAt
         __typename
       }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
       createdAt
       updatedAt
-      userGoalsId
-      goalCreatorId
+      userAssociatedShamesId
+      goalShamersId
       __typename
     }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListShamersQueryVariables,
+  APITypes.ListShamersQuery
+>;
+export const getAICoach = /* GraphQL */ `query GetAICoach($id: ID!) {
+  getAICoach(id: $id) {
+    id
+    name
+    avatar
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetUserGoalPartnersQueryVariables,
-  APITypes.GetUserGoalPartnersQuery
+  APITypes.GetAICoachQueryVariables,
+  APITypes.GetAICoachQuery
 >;
-export const listUserGoalPartners = /* GraphQL */ `query ListUserGoalPartners(
-  $filter: ModelUserGoalPartnersFilterInput
+export const listAICoaches = /* GraphQL */ `query ListAICoaches(
+  $filter: ModelAICoachFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listUserGoalPartners(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listAICoaches(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      userId
-      goalId
-      user {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      goal {
-        name
-        title
-        description
-        deadline
-        id
-        createdAt
-        updatedAt
-        userGoalsId
-        goalCreatorId
-        __typename
-      }
+      name
+      avatar
       createdAt
       updatedAt
       __typename
@@ -382,108 +488,6 @@ export const listUserGoalPartners = /* GraphQL */ `query ListUserGoalPartners(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListUserGoalPartnersQueryVariables,
-  APITypes.ListUserGoalPartnersQuery
->;
-export const userGoalPartnersByUserId = /* GraphQL */ `query UserGoalPartnersByUserId(
-  $userId: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserGoalPartnersFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  userGoalPartnersByUserId(
-    userId: $userId
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      userId
-      goalId
-      user {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      goal {
-        name
-        title
-        description
-        deadline
-        id
-        createdAt
-        updatedAt
-        userGoalsId
-        goalCreatorId
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.UserGoalPartnersByUserIdQueryVariables,
-  APITypes.UserGoalPartnersByUserIdQuery
->;
-export const userGoalPartnersByGoalId = /* GraphQL */ `query UserGoalPartnersByGoalId(
-  $goalId: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserGoalPartnersFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  userGoalPartnersByGoalId(
-    goalId: $goalId
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      userId
-      goalId
-      user {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      goal {
-        name
-        title
-        description
-        deadline
-        id
-        createdAt
-        updatedAt
-        userGoalsId
-        goalCreatorId
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.UserGoalPartnersByGoalIdQueryVariables,
-  APITypes.UserGoalPartnersByGoalIdQuery
+  APITypes.ListAICoachesQueryVariables,
+  APITypes.ListAICoachesQuery
 >;

@@ -7,9 +7,10 @@ type User @model {
 	firstName: String
 	lastName: String
 	email: String
+	phoneNumber: String
 	goals: [Goal] @hasMany
 	checkIns: [CheckIn] @hasMany
-	partnerGoals: [Goal] @manyToMany(relationName: "UserGoalPartners")
+	associatedShames: [Shamer] @hasMany
 }
 
 type Goal @model {
@@ -19,7 +20,7 @@ type Goal @model {
 	deadline: AWSDateTime
 	creator: User @hasOne
 	checkIns: [CheckIn] @hasMany
-	partners: [User] @manyToMany(relationName: "UserGoalPartners")
+	shamers: [Shamer] @hasMany
 }
 
 type CheckIn @model {
@@ -29,9 +30,32 @@ type CheckIn @model {
 	description: String
 	creator: User @hasOne
 	deadline: AWSDateTime
+	parentGoal: Goal @belongsTo
+}
+
+type Shamer @model {
+	id: ID!
+	name: String
+	phoneNumber: String
+	email: String
+	shamingGoal: [Goal] @hasMany
+	shamingCheckIns: [CheckIn] @hasMany
+	account: User @belongsTo
+}
+
+type AICoach @model {
+	id: ID!
+	name: String
+	avatar: AICoachAvatar
+}
+
+enum AICoachAvatar {
+	ARNOLD
+	DOGGINS
 }
 
 enum CheckInType {
+	CLICK
 	PHOTO
 	TEXT
 	EMAIL

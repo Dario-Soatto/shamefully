@@ -6,14 +6,22 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SelectField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createUser } from "../graphql/mutations";
+import { getAICoach } from "../graphql/queries";
+import { updateAICoach } from "../graphql/mutations";
 const client = generateClient();
-export default function UserCreateForm(props) {
+export default function AICoachUpdateForm(props) {
   const {
-    clearOnSuccess = true,
+    id: idProp,
+    aICoach: aICoachModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -23,30 +31,39 @@ export default function UserCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
+    name: "",
+    avatar: "",
   };
-  const [firstName, setFirstName] = React.useState(initialValues.firstName);
-  const [lastName, setLastName] = React.useState(initialValues.lastName);
-  const [email, setEmail] = React.useState(initialValues.email);
-  const [phoneNumber, setPhoneNumber] = React.useState(
-    initialValues.phoneNumber
-  );
+  const [name, setName] = React.useState(initialValues.name);
+  const [avatar, setAvatar] = React.useState(initialValues.avatar);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setFirstName(initialValues.firstName);
-    setLastName(initialValues.lastName);
-    setEmail(initialValues.email);
-    setPhoneNumber(initialValues.phoneNumber);
+    const cleanValues = aICoachRecord
+      ? { ...initialValues, ...aICoachRecord }
+      : initialValues;
+    setName(cleanValues.name);
+    setAvatar(cleanValues.avatar);
     setErrors({});
   };
+  const [aICoachRecord, setAICoachRecord] = React.useState(aICoachModelProp);
+  React.useEffect(() => {
+    const queryData = async () => {
+      const record = idProp
+        ? (
+            await client.graphql({
+              query: getAICoach.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getAICoach
+        : aICoachModelProp;
+      setAICoachRecord(record);
+    };
+    queryData();
+  }, [idProp, aICoachModelProp]);
+  React.useEffect(resetStateValues, [aICoachRecord]);
   const validations = {
-    firstName: [],
-    lastName: [],
-    email: [],
-    phoneNumber: [],
+    name: [],
+    avatar: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -74,10 +91,8 @@ export default function UserCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
+          name: name ?? null,
+          avatar: avatar ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -108,18 +123,16 @@ export default function UserCreateForm(props) {
             }
           });
           await client.graphql({
-            query: createUser.replaceAll("__typename", ""),
+            query: updateAICoach.replaceAll("__typename", ""),
             variables: {
               input: {
+                id: aICoachRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
-          }
-          if (clearOnSuccess) {
-            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -128,129 +141,83 @@ export default function UserCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserCreateForm")}
+      {...getOverrideProps(overrides, "AICoachUpdateForm")}
       {...rest}
     >
       <TextField
-        label="First name"
+        label="Name"
         isRequired={false}
         isReadOnly={false}
-        value={firstName}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName: value,
-              lastName,
-              email,
-              phoneNumber,
+              name: value,
+              avatar,
             };
             const result = onChange(modelFields);
-            value = result?.firstName ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.firstName?.hasError) {
-            runValidationTasks("firstName", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
-          setFirstName(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("firstName", firstName)}
-        errorMessage={errors.firstName?.errorMessage}
-        hasError={errors.firstName?.hasError}
-        {...getOverrideProps(overrides, "firstName")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
-      <TextField
-        label="Last name"
-        isRequired={false}
-        isReadOnly={false}
-        value={lastName}
+      <SelectField
+        label="Avatar"
+        placeholder="Please select an option"
+        isDisabled={false}
+        value={avatar}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              firstName,
-              lastName: value,
-              email,
-              phoneNumber,
+              name,
+              avatar: value,
             };
             const result = onChange(modelFields);
-            value = result?.lastName ?? value;
+            value = result?.avatar ?? value;
           }
-          if (errors.lastName?.hasError) {
-            runValidationTasks("lastName", value);
+          if (errors.avatar?.hasError) {
+            runValidationTasks("avatar", value);
           }
-          setLastName(value);
+          setAvatar(value);
         }}
-        onBlur={() => runValidationTasks("lastName", lastName)}
-        errorMessage={errors.lastName?.errorMessage}
-        hasError={errors.lastName?.hasError}
-        {...getOverrideProps(overrides, "lastName")}
-      ></TextField>
-      <TextField
-        label="Email"
-        isRequired={false}
-        isReadOnly={false}
-        value={email}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              email: value,
-              phoneNumber,
-            };
-            const result = onChange(modelFields);
-            value = result?.email ?? value;
-          }
-          if (errors.email?.hasError) {
-            runValidationTasks("email", value);
-          }
-          setEmail(value);
-        }}
-        onBlur={() => runValidationTasks("email", email)}
-        errorMessage={errors.email?.errorMessage}
-        hasError={errors.email?.hasError}
-        {...getOverrideProps(overrides, "email")}
-      ></TextField>
-      <TextField
-        label="Phone number"
-        isRequired={false}
-        isReadOnly={false}
-        value={phoneNumber}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              email,
-              phoneNumber: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.phoneNumber ?? value;
-          }
-          if (errors.phoneNumber?.hasError) {
-            runValidationTasks("phoneNumber", value);
-          }
-          setPhoneNumber(value);
-        }}
-        onBlur={() => runValidationTasks("phoneNumber", phoneNumber)}
-        errorMessage={errors.phoneNumber?.errorMessage}
-        hasError={errors.phoneNumber?.hasError}
-        {...getOverrideProps(overrides, "phoneNumber")}
-      ></TextField>
+        onBlur={() => runValidationTasks("avatar", avatar)}
+        errorMessage={errors.avatar?.errorMessage}
+        hasError={errors.avatar?.hasError}
+        {...getOverrideProps(overrides, "avatar")}
+      >
+        <option
+          children="Arnold"
+          value="ARNOLD"
+          {...getOverrideProps(overrides, "avataroption0")}
+        ></option>
+        <option
+          children="Doggins"
+          value="DOGGINS"
+          {...getOverrideProps(overrides, "avataroption1")}
+        ></option>
+      </SelectField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Clear"
+          children="Reset"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          isDisabled={!(idProp || aICoachModelProp)}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -260,7 +227,10 @@ export default function UserCreateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || aICoachModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

@@ -6,6 +6,7 @@ export type CreateUserInput = {
   firstName?: string | null,
   lastName?: string | null,
   email?: string | null,
+  phoneNumber?: string | null,
   id?: string | null,
 };
 
@@ -13,6 +14,7 @@ export type ModelUserConditionInput = {
   firstName?: ModelStringInput | null,
   lastName?: ModelStringInput | null,
   email?: ModelStringInput | null,
+  phoneNumber?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -63,9 +65,10 @@ export type User = {
   firstName?: string | null,
   lastName?: string | null,
   email?: string | null,
+  phoneNumber?: string | null,
   goals?: ModelGoalConnection | null,
   checkIns?: ModelCheckInConnection | null,
-  partnerGoals?: ModelUserGoalPartnersConnection | null,
+  associatedShames?: ModelShamerConnection | null,
   id: string,
   createdAt: string,
   updatedAt: string,
@@ -85,11 +88,12 @@ export type Goal = {
   deadline?: string | null,
   creator?: User | null,
   checkIns?: ModelCheckInConnection | null,
-  partners?: ModelUserGoalPartnersConnection | null,
+  shamers?: ModelShamerConnection | null,
   id: string,
   createdAt: string,
   updatedAt: string,
   userGoalsId?: string | null,
+  shamerShamingGoalId?: string | null,
   goalCreatorId?: string | null,
 };
 
@@ -107,14 +111,17 @@ export type CheckIn = {
   description?: string | null,
   creator?: User | null,
   deadline?: string | null,
+  parentGoal?: Goal | null,
   createdAt: string,
   updatedAt: string,
   userCheckInsId?: string | null,
   goalCheckInsId?: string | null,
+  shamerShamingCheckInsId?: string | null,
   checkInCreatorId?: string | null,
 };
 
 export enum CheckInType {
+  CLICK = "CLICK",
   PHOTO = "PHOTO",
   TEXT = "TEXT",
   EMAIL = "EMAIL",
@@ -123,27 +130,32 @@ export enum CheckInType {
 }
 
 
-export type ModelUserGoalPartnersConnection = {
-  __typename: "ModelUserGoalPartnersConnection",
-  items:  Array<UserGoalPartners | null >,
+export type ModelShamerConnection = {
+  __typename: "ModelShamerConnection",
+  items:  Array<Shamer | null >,
   nextToken?: string | null,
 };
 
-export type UserGoalPartners = {
-  __typename: "UserGoalPartners",
+export type Shamer = {
+  __typename: "Shamer",
   id: string,
-  userId: string,
-  goalId: string,
-  user: User,
-  goal: Goal,
+  name?: string | null,
+  phoneNumber?: string | null,
+  email?: string | null,
+  shamingGoal?: ModelGoalConnection | null,
+  shamingCheckIns?: ModelCheckInConnection | null,
+  account?: User | null,
   createdAt: string,
   updatedAt: string,
+  userAssociatedShamesId?: string | null,
+  goalShamersId?: string | null,
 };
 
 export type UpdateUserInput = {
   firstName?: string | null,
   lastName?: string | null,
   email?: string | null,
+  phoneNumber?: string | null,
   id: string,
 };
 
@@ -158,6 +170,7 @@ export type CreateGoalInput = {
   deadline?: string | null,
   id?: string | null,
   userGoalsId?: string | null,
+  shamerShamingGoalId?: string | null,
   goalCreatorId?: string | null,
 };
 
@@ -170,6 +183,7 @@ export type ModelGoalConditionInput = {
   or?: Array< ModelGoalConditionInput | null > | null,
   not?: ModelGoalConditionInput | null,
   userGoalsId?: ModelIDInput | null,
+  shamerShamingGoalId?: ModelIDInput | null,
   goalCreatorId?: ModelIDInput | null,
 };
 
@@ -196,6 +210,7 @@ export type UpdateGoalInput = {
   deadline?: string | null,
   id: string,
   userGoalsId?: string | null,
+  shamerShamingGoalId?: string | null,
   goalCreatorId?: string | null,
 };
 
@@ -211,6 +226,7 @@ export type CreateCheckInInput = {
   deadline?: string | null,
   userCheckInsId?: string | null,
   goalCheckInsId?: string | null,
+  shamerShamingCheckInsId?: string | null,
   checkInCreatorId?: string | null,
 };
 
@@ -224,6 +240,7 @@ export type ModelCheckInConditionInput = {
   not?: ModelCheckInConditionInput | null,
   userCheckInsId?: ModelIDInput | null,
   goalCheckInsId?: ModelIDInput | null,
+  shamerShamingCheckInsId?: ModelIDInput | null,
   checkInCreatorId?: ModelIDInput | null,
 };
 
@@ -240,6 +257,7 @@ export type UpdateCheckInInput = {
   deadline?: string | null,
   userCheckInsId?: string | null,
   goalCheckInsId?: string | null,
+  shamerShamingCheckInsId?: string | null,
   checkInCreatorId?: string | null,
 };
 
@@ -247,27 +265,80 @@ export type DeleteCheckInInput = {
   id: string,
 };
 
-export type CreateUserGoalPartnersInput = {
+export type CreateShamerInput = {
   id?: string | null,
-  userId: string,
-  goalId: string,
+  name?: string | null,
+  phoneNumber?: string | null,
+  email?: string | null,
+  userAssociatedShamesId?: string | null,
+  goalShamersId?: string | null,
 };
 
-export type ModelUserGoalPartnersConditionInput = {
-  userId?: ModelIDInput | null,
-  goalId?: ModelIDInput | null,
-  and?: Array< ModelUserGoalPartnersConditionInput | null > | null,
-  or?: Array< ModelUserGoalPartnersConditionInput | null > | null,
-  not?: ModelUserGoalPartnersConditionInput | null,
+export type ModelShamerConditionInput = {
+  name?: ModelStringInput | null,
+  phoneNumber?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  and?: Array< ModelShamerConditionInput | null > | null,
+  or?: Array< ModelShamerConditionInput | null > | null,
+  not?: ModelShamerConditionInput | null,
+  userAssociatedShamesId?: ModelIDInput | null,
+  goalShamersId?: ModelIDInput | null,
 };
 
-export type UpdateUserGoalPartnersInput = {
+export type UpdateShamerInput = {
   id: string,
-  userId?: string | null,
-  goalId?: string | null,
+  name?: string | null,
+  phoneNumber?: string | null,
+  email?: string | null,
+  userAssociatedShamesId?: string | null,
+  goalShamersId?: string | null,
 };
 
-export type DeleteUserGoalPartnersInput = {
+export type DeleteShamerInput = {
+  id: string,
+};
+
+export type CreateAICoachInput = {
+  id?: string | null,
+  name?: string | null,
+  avatar?: AICoachAvatar | null,
+};
+
+export enum AICoachAvatar {
+  ARNOLD = "ARNOLD",
+  DOGGINS = "DOGGINS",
+}
+
+
+export type ModelAICoachConditionInput = {
+  name?: ModelStringInput | null,
+  avatar?: ModelAICoachAvatarInput | null,
+  and?: Array< ModelAICoachConditionInput | null > | null,
+  or?: Array< ModelAICoachConditionInput | null > | null,
+  not?: ModelAICoachConditionInput | null,
+};
+
+export type ModelAICoachAvatarInput = {
+  eq?: AICoachAvatar | null,
+  ne?: AICoachAvatar | null,
+};
+
+export type AICoach = {
+  __typename: "AICoach",
+  id: string,
+  name?: string | null,
+  avatar?: AICoachAvatar | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateAICoachInput = {
+  id: string,
+  name?: string | null,
+  avatar?: AICoachAvatar | null,
+};
+
+export type DeleteAICoachInput = {
   id: string,
 };
 
@@ -275,6 +346,7 @@ export type ModelUserFilterInput = {
   firstName?: ModelStringInput | null,
   lastName?: ModelStringInput | null,
   email?: ModelStringInput | null,
+  phoneNumber?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -295,6 +367,7 @@ export type ModelGoalFilterInput = {
   or?: Array< ModelGoalFilterInput | null > | null,
   not?: ModelGoalFilterInput | null,
   userGoalsId?: ModelIDInput | null,
+  shamerShamingGoalId?: ModelIDInput | null,
   goalCreatorId?: ModelIDInput | null,
 };
 
@@ -309,28 +382,42 @@ export type ModelCheckInFilterInput = {
   not?: ModelCheckInFilterInput | null,
   userCheckInsId?: ModelIDInput | null,
   goalCheckInsId?: ModelIDInput | null,
+  shamerShamingCheckInsId?: ModelIDInput | null,
   checkInCreatorId?: ModelIDInput | null,
 };
 
-export type ModelUserGoalPartnersFilterInput = {
+export type ModelShamerFilterInput = {
   id?: ModelIDInput | null,
-  userId?: ModelIDInput | null,
-  goalId?: ModelIDInput | null,
-  and?: Array< ModelUserGoalPartnersFilterInput | null > | null,
-  or?: Array< ModelUserGoalPartnersFilterInput | null > | null,
-  not?: ModelUserGoalPartnersFilterInput | null,
+  name?: ModelStringInput | null,
+  phoneNumber?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  and?: Array< ModelShamerFilterInput | null > | null,
+  or?: Array< ModelShamerFilterInput | null > | null,
+  not?: ModelShamerFilterInput | null,
+  userAssociatedShamesId?: ModelIDInput | null,
+  goalShamersId?: ModelIDInput | null,
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
+export type ModelAICoachFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  avatar?: ModelAICoachAvatarInput | null,
+  and?: Array< ModelAICoachFilterInput | null > | null,
+  or?: Array< ModelAICoachFilterInput | null > | null,
+  not?: ModelAICoachFilterInput | null,
+};
 
+export type ModelAICoachConnection = {
+  __typename: "ModelAICoachConnection",
+  items:  Array<AICoach | null >,
+  nextToken?: string | null,
+};
 
 export type ModelSubscriptionUserFilterInput = {
   firstName?: ModelSubscriptionStringInput | null,
   lastName?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
+  phoneNumber?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
@@ -384,12 +471,21 @@ export type ModelSubscriptionIDInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionUserGoalPartnersFilterInput = {
+export type ModelSubscriptionShamerFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  userId?: ModelSubscriptionIDInput | null,
-  goalId?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionUserGoalPartnersFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserGoalPartnersFilterInput | null > | null,
+  name?: ModelSubscriptionStringInput | null,
+  phoneNumber?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionShamerFilterInput | null > | null,
+  or?: Array< ModelSubscriptionShamerFilterInput | null > | null,
+};
+
+export type ModelSubscriptionAICoachFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  avatar?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAICoachFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAICoachFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -403,6 +499,7 @@ export type CreateUserMutation = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -415,6 +512,7 @@ export type CreateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -432,19 +530,23 @@ export type CreateUserMutation = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -465,6 +567,7 @@ export type UpdateUserMutation = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -477,6 +580,7 @@ export type UpdateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -494,19 +598,23 @@ export type UpdateUserMutation = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -527,6 +635,7 @@ export type DeleteUserMutation = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -539,6 +648,7 @@ export type DeleteUserMutation = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -556,19 +666,23 @@ export type DeleteUserMutation = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -595,6 +709,7 @@ export type CreateGoalMutation = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -603,8 +718,8 @@ export type CreateGoalMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -624,19 +739,23 @@ export type CreateGoalMutation = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -644,6 +763,7 @@ export type CreateGoalMutation = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -665,6 +785,7 @@ export type UpdateGoalMutation = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -673,8 +794,8 @@ export type UpdateGoalMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -694,19 +815,23 @@ export type UpdateGoalMutation = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -714,6 +839,7 @@ export type UpdateGoalMutation = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -735,6 +861,7 @@ export type DeleteGoalMutation = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -743,8 +870,8 @@ export type DeleteGoalMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -764,19 +891,23 @@ export type DeleteGoalMutation = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -784,6 +915,7 @@ export type DeleteGoalMutation = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -805,6 +937,7 @@ export type CreateCheckInMutation = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -813,8 +946,8 @@ export type CreateCheckInMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -822,10 +955,42 @@ export type CreateCheckInMutation = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
@@ -847,6 +1012,7 @@ export type UpdateCheckInMutation = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -855,8 +1021,8 @@ export type UpdateCheckInMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -864,10 +1030,42 @@ export type UpdateCheckInMutation = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
@@ -889,6 +1087,7 @@ export type DeleteCheckInMutation = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -897,8 +1096,8 @@ export type DeleteCheckInMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -906,30 +1105,99 @@ export type DeleteCheckInMutation = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
 
-export type CreateUserGoalPartnersMutationVariables = {
-  input: CreateUserGoalPartnersInput,
-  condition?: ModelUserGoalPartnersConditionInput | null,
+export type CreateShamerMutationVariables = {
+  input: CreateShamerInput,
+  condition?: ModelShamerConditionInput | null,
 };
 
-export type CreateUserGoalPartnersMutation = {
-  createUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type CreateShamerMutation = {
+  createShamer?:  {
+    __typename: "Shamer",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
       __typename: "User",
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -938,175 +1206,216 @@ export type CreateUserGoalPartnersMutation = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
       createdAt: string,
       updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
-      name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type UpdateShamerMutationVariables = {
+  input: UpdateShamerInput,
+  condition?: ModelShamerConditionInput | null,
+};
+
+export type UpdateShamerMutation = {
+  updateShamer?:  {
+    __typename: "Shamer",
+    id: string,
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
         id: string,
         createdAt: string,
         updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
+      __typename: "User",
+      firstName?: string | null,
+      lastName?: string | null,
+      email?: string | null,
+      phoneNumber?: string | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
       } | null,
       checkIns?:  {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
       createdAt: string,
       updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type DeleteShamerMutationVariables = {
+  input: DeleteShamerInput,
+  condition?: ModelShamerConditionInput | null,
+};
+
+export type DeleteShamerMutation = {
+  deleteShamer?:  {
+    __typename: "Shamer",
+    id: string,
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
+      __typename: "User",
+      firstName?: string | null,
+      lastName?: string | null,
+      email?: string | null,
+      phoneNumber?: string | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type CreateAICoachMutationVariables = {
+  input: CreateAICoachInput,
+  condition?: ModelAICoachConditionInput | null,
+};
+
+export type CreateAICoachMutation = {
+  createAICoach?:  {
+    __typename: "AICoach",
+    id: string,
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateUserGoalPartnersMutationVariables = {
-  input: UpdateUserGoalPartnersInput,
-  condition?: ModelUserGoalPartnersConditionInput | null,
+export type UpdateAICoachMutationVariables = {
+  input: UpdateAICoachInput,
+  condition?: ModelAICoachConditionInput | null,
 };
 
-export type UpdateUserGoalPartnersMutation = {
-  updateUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type UpdateAICoachMutation = {
+  updateAICoach?:  {
+    __typename: "AICoach",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
-      __typename: "User",
-      firstName?: string | null,
-      lastName?: string | null,
-      email?: string | null,
-      goals?:  {
-        __typename: "ModelGoalConnection",
-        nextToken?: string | null,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
-      name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteUserGoalPartnersMutationVariables = {
-  input: DeleteUserGoalPartnersInput,
-  condition?: ModelUserGoalPartnersConditionInput | null,
+export type DeleteAICoachMutationVariables = {
+  input: DeleteAICoachInput,
+  condition?: ModelAICoachConditionInput | null,
 };
 
-export type DeleteUserGoalPartnersMutation = {
-  deleteUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type DeleteAICoachMutation = {
+  deleteAICoach?:  {
+    __typename: "AICoach",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
-      __typename: "User",
-      firstName?: string | null,
-      lastName?: string | null,
-      email?: string | null,
-      goals?:  {
-        __typename: "ModelGoalConnection",
-        nextToken?: string | null,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
-      name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1122,6 +1431,7 @@ export type GetUserQuery = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -1134,6 +1444,7 @@ export type GetUserQuery = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1151,19 +1462,23 @@ export type GetUserQuery = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1187,6 +1502,7 @@ export type ListUsersQuery = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1195,8 +1511,8 @@ export type ListUsersQuery = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -1223,6 +1539,7 @@ export type GetGoalQuery = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1231,8 +1548,8 @@ export type GetGoalQuery = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -1252,19 +1569,23 @@ export type GetGoalQuery = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1272,6 +1593,7 @@ export type GetGoalQuery = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -1296,6 +1618,7 @@ export type ListGoalsQuery = {
         firstName?: string | null,
         lastName?: string | null,
         email?: string | null,
+        phoneNumber?: string | null,
         id: string,
         createdAt: string,
         updatedAt: string,
@@ -1304,14 +1627,15 @@ export type ListGoalsQuery = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      shamers?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
       createdAt: string,
       updatedAt: string,
       userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
       goalCreatorId?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -1334,6 +1658,7 @@ export type GetCheckInQuery = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1342,8 +1667,8 @@ export type GetCheckInQuery = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -1351,10 +1676,42 @@ export type GetCheckInQuery = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
@@ -1379,36 +1736,88 @@ export type ListCheckInsQuery = {
         firstName?: string | null,
         lastName?: string | null,
         email?: string | null,
+        phoneNumber?: string | null,
         id: string,
         createdAt: string,
         updatedAt: string,
       } | null,
       deadline?: string | null,
+      parentGoal?:  {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userCheckInsId?: string | null,
       goalCheckInsId?: string | null,
+      shamerShamingCheckInsId?: string | null,
       checkInCreatorId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type GetUserGoalPartnersQueryVariables = {
+export type GetShamerQueryVariables = {
   id: string,
 };
 
-export type GetUserGoalPartnersQuery = {
-  getUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type GetShamerQuery = {
+  getShamer?:  {
+    __typename: "Shamer",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
       __typename: "User",
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1417,171 +1826,92 @@ export type GetUserGoalPartnersQuery = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
       createdAt: string,
       updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type ListShamersQueryVariables = {
+  filter?: ModelShamerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListShamersQuery = {
+  listShamers?:  {
+    __typename: "ModelShamerConnection",
+    items:  Array< {
+      __typename: "Shamer",
+      id: string,
       name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
+      phoneNumber?: string | null,
+      email?: string | null,
+      shamingGoal?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      shamingCheckIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      account?:  {
         __typename: "User",
         firstName?: string | null,
         lastName?: string | null,
         email?: string | null,
+        phoneNumber?: string | null,
         id: string,
         createdAt: string,
         updatedAt: string,
       } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+      userAssociatedShamesId?: string | null,
+      goalShamersId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAICoachQueryVariables = {
+  id: string,
+};
+
+export type GetAICoachQuery = {
+  getAICoach?:  {
+    __typename: "AICoach",
+    id: string,
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListUserGoalPartnersQueryVariables = {
-  filter?: ModelUserGoalPartnersFilterInput | null,
+export type ListAICoachesQueryVariables = {
+  filter?: ModelAICoachFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListUserGoalPartnersQuery = {
-  listUserGoalPartners?:  {
-    __typename: "ModelUserGoalPartnersConnection",
+export type ListAICoachesQuery = {
+  listAICoaches?:  {
+    __typename: "ModelAICoachConnection",
     items:  Array< {
-      __typename: "UserGoalPartners",
+      __typename: "AICoach",
       id: string,
-      userId: string,
-      goalId: string,
-      user:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      goal:  {
-        __typename: "Goal",
-        name?: string | null,
-        title?: string | null,
-        description?: string | null,
-        deadline?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        userGoalsId?: string | null,
-        goalCreatorId?: string | null,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UserGoalPartnersByUserIdQueryVariables = {
-  userId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelUserGoalPartnersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UserGoalPartnersByUserIdQuery = {
-  userGoalPartnersByUserId?:  {
-    __typename: "ModelUserGoalPartnersConnection",
-    items:  Array< {
-      __typename: "UserGoalPartners",
-      id: string,
-      userId: string,
-      goalId: string,
-      user:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      goal:  {
-        __typename: "Goal",
-        name?: string | null,
-        title?: string | null,
-        description?: string | null,
-        deadline?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        userGoalsId?: string | null,
-        goalCreatorId?: string | null,
-      },
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UserGoalPartnersByGoalIdQueryVariables = {
-  goalId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelUserGoalPartnersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UserGoalPartnersByGoalIdQuery = {
-  userGoalPartnersByGoalId?:  {
-    __typename: "ModelUserGoalPartnersConnection",
-    items:  Array< {
-      __typename: "UserGoalPartners",
-      id: string,
-      userId: string,
-      goalId: string,
-      user:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      goal:  {
-        __typename: "Goal",
-        name?: string | null,
-        title?: string | null,
-        description?: string | null,
-        deadline?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        userGoalsId?: string | null,
-        goalCreatorId?: string | null,
-      },
+      name?: string | null,
+      avatar?: AICoachAvatar | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1599,6 +1929,7 @@ export type OnCreateUserSubscription = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -1611,6 +1942,7 @@ export type OnCreateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1628,19 +1960,23 @@ export type OnCreateUserSubscription = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1660,6 +1996,7 @@ export type OnUpdateUserSubscription = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -1672,6 +2009,7 @@ export type OnUpdateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1689,19 +2027,23 @@ export type OnUpdateUserSubscription = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1721,6 +2063,7 @@ export type OnDeleteUserSubscription = {
     firstName?: string | null,
     lastName?: string | null,
     email?: string | null,
+    phoneNumber?: string | null,
     goals?:  {
       __typename: "ModelGoalConnection",
       items:  Array< {
@@ -1733,6 +2076,7 @@ export type OnDeleteUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
         goalCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -1750,19 +2094,23 @@ export type OnDeleteUserSubscription = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partnerGoals?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    associatedShames?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1788,6 +2136,7 @@ export type OnCreateGoalSubscription = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1796,8 +2145,8 @@ export type OnCreateGoalSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -1817,19 +2166,23 @@ export type OnCreateGoalSubscription = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1837,6 +2190,7 @@ export type OnCreateGoalSubscription = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -1857,6 +2211,7 @@ export type OnUpdateGoalSubscription = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1865,8 +2220,8 @@ export type OnUpdateGoalSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -1886,19 +2241,23 @@ export type OnUpdateGoalSubscription = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1906,6 +2265,7 @@ export type OnUpdateGoalSubscription = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -1926,6 +2286,7 @@ export type OnDeleteGoalSubscription = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -1934,8 +2295,8 @@ export type OnDeleteGoalSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -1955,19 +2316,23 @@ export type OnDeleteGoalSubscription = {
         updatedAt: string,
         userCheckInsId?: string | null,
         goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
         checkInCreatorId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
-    partners?:  {
-      __typename: "ModelUserGoalPartnersConnection",
+    shamers?:  {
+      __typename: "ModelShamerConnection",
       items:  Array< {
-        __typename: "UserGoalPartners",
+        __typename: "Shamer",
         id: string,
-        userId: string,
-        goalId: string,
+        name?: string | null,
+        phoneNumber?: string | null,
+        email?: string | null,
         createdAt: string,
         updatedAt: string,
+        userAssociatedShamesId?: string | null,
+        goalShamersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1975,6 +2340,7 @@ export type OnDeleteGoalSubscription = {
     createdAt: string,
     updatedAt: string,
     userGoalsId?: string | null,
+    shamerShamingGoalId?: string | null,
     goalCreatorId?: string | null,
   } | null,
 };
@@ -1995,6 +2361,7 @@ export type OnCreateCheckInSubscription = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -2003,8 +2370,8 @@ export type OnCreateCheckInSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -2012,10 +2379,42 @@ export type OnCreateCheckInSubscription = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
@@ -2036,6 +2435,7 @@ export type OnUpdateCheckInSubscription = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -2044,8 +2444,8 @@ export type OnUpdateCheckInSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -2053,10 +2453,42 @@ export type OnUpdateCheckInSubscription = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
@@ -2077,6 +2509,7 @@ export type OnDeleteCheckInSubscription = {
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -2085,8 +2518,8 @@ export type OnDeleteCheckInSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
@@ -2094,29 +2527,98 @@ export type OnDeleteCheckInSubscription = {
       updatedAt: string,
     } | null,
     deadline?: string | null,
+    parentGoal?:  {
+      __typename: "Goal",
+      name?: string | null,
+      title?: string | null,
+      description?: string | null,
+      deadline?: string | null,
+      creator?:  {
+        __typename: "User",
+        firstName?: string | null,
+        lastName?: string | null,
+        email?: string | null,
+        phoneNumber?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      shamers?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      userGoalsId?: string | null,
+      shamerShamingGoalId?: string | null,
+      goalCreatorId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userCheckInsId?: string | null,
     goalCheckInsId?: string | null,
+    shamerShamingCheckInsId?: string | null,
     checkInCreatorId?: string | null,
   } | null,
 };
 
-export type OnCreateUserGoalPartnersSubscriptionVariables = {
-  filter?: ModelSubscriptionUserGoalPartnersFilterInput | null,
+export type OnCreateShamerSubscriptionVariables = {
+  filter?: ModelSubscriptionShamerFilterInput | null,
 };
 
-export type OnCreateUserGoalPartnersSubscription = {
-  onCreateUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type OnCreateShamerSubscription = {
+  onCreateShamer?:  {
+    __typename: "Shamer",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
       __typename: "User",
       firstName?: string | null,
       lastName?: string | null,
       email?: string | null,
+      phoneNumber?: string | null,
       goals?:  {
         __typename: "ModelGoalConnection",
         nextToken?: string | null,
@@ -2125,173 +2627,211 @@ export type OnCreateUserGoalPartnersSubscription = {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
       createdAt: string,
       updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
-      name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type OnUpdateShamerSubscriptionVariables = {
+  filter?: ModelSubscriptionShamerFilterInput | null,
+};
+
+export type OnUpdateShamerSubscription = {
+  onUpdateShamer?:  {
+    __typename: "Shamer",
+    id: string,
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
         id: string,
         createdAt: string,
         updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
+      __typename: "User",
+      firstName?: string | null,
+      lastName?: string | null,
+      email?: string | null,
+      phoneNumber?: string | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
       } | null,
       checkIns?:  {
         __typename: "ModelCheckInConnection",
         nextToken?: string | null,
       } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
         nextToken?: string | null,
       } | null,
       id: string,
       createdAt: string,
       updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type OnDeleteShamerSubscriptionVariables = {
+  filter?: ModelSubscriptionShamerFilterInput | null,
+};
+
+export type OnDeleteShamerSubscription = {
+  onDeleteShamer?:  {
+    __typename: "Shamer",
+    id: string,
+    name?: string | null,
+    phoneNumber?: string | null,
+    email?: string | null,
+    shamingGoal?:  {
+      __typename: "ModelGoalConnection",
+      items:  Array< {
+        __typename: "Goal",
+        name?: string | null,
+        title?: string | null,
+        description?: string | null,
+        deadline?: string | null,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        userGoalsId?: string | null,
+        shamerShamingGoalId?: string | null,
+        goalCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    shamingCheckIns?:  {
+      __typename: "ModelCheckInConnection",
+      items:  Array< {
+        __typename: "CheckIn",
+        id: string,
+        title?: string | null,
+        type?: CheckInType | null,
+        description?: string | null,
+        deadline?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userCheckInsId?: string | null,
+        goalCheckInsId?: string | null,
+        shamerShamingCheckInsId?: string | null,
+        checkInCreatorId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    account?:  {
+      __typename: "User",
+      firstName?: string | null,
+      lastName?: string | null,
+      email?: string | null,
+      phoneNumber?: string | null,
+      goals?:  {
+        __typename: "ModelGoalConnection",
+        nextToken?: string | null,
+      } | null,
+      checkIns?:  {
+        __typename: "ModelCheckInConnection",
+        nextToken?: string | null,
+      } | null,
+      associatedShames?:  {
+        __typename: "ModelShamerConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userAssociatedShamesId?: string | null,
+    goalShamersId?: string | null,
+  } | null,
+};
+
+export type OnCreateAICoachSubscriptionVariables = {
+  filter?: ModelSubscriptionAICoachFilterInput | null,
+};
+
+export type OnCreateAICoachSubscription = {
+  onCreateAICoach?:  {
+    __typename: "AICoach",
+    id: string,
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateUserGoalPartnersSubscriptionVariables = {
-  filter?: ModelSubscriptionUserGoalPartnersFilterInput | null,
+export type OnUpdateAICoachSubscriptionVariables = {
+  filter?: ModelSubscriptionAICoachFilterInput | null,
 };
 
-export type OnUpdateUserGoalPartnersSubscription = {
-  onUpdateUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type OnUpdateAICoachSubscription = {
+  onUpdateAICoach?:  {
+    __typename: "AICoach",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
-      __typename: "User",
-      firstName?: string | null,
-      lastName?: string | null,
-      email?: string | null,
-      goals?:  {
-        __typename: "ModelGoalConnection",
-        nextToken?: string | null,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
-      name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteUserGoalPartnersSubscriptionVariables = {
-  filter?: ModelSubscriptionUserGoalPartnersFilterInput | null,
+export type OnDeleteAICoachSubscriptionVariables = {
+  filter?: ModelSubscriptionAICoachFilterInput | null,
 };
 
-export type OnDeleteUserGoalPartnersSubscription = {
-  onDeleteUserGoalPartners?:  {
-    __typename: "UserGoalPartners",
+export type OnDeleteAICoachSubscription = {
+  onDeleteAICoach?:  {
+    __typename: "AICoach",
     id: string,
-    userId: string,
-    goalId: string,
-    user:  {
-      __typename: "User",
-      firstName?: string | null,
-      lastName?: string | null,
-      email?: string | null,
-      goals?:  {
-        __typename: "ModelGoalConnection",
-        nextToken?: string | null,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partnerGoals?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    goal:  {
-      __typename: "Goal",
-      name?: string | null,
-      title?: string | null,
-      description?: string | null,
-      deadline?: string | null,
-      creator?:  {
-        __typename: "User",
-        firstName?: string | null,
-        lastName?: string | null,
-        email?: string | null,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      checkIns?:  {
-        __typename: "ModelCheckInConnection",
-        nextToken?: string | null,
-      } | null,
-      partners?:  {
-        __typename: "ModelUserGoalPartnersConnection",
-        nextToken?: string | null,
-      } | null,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      userGoalsId?: string | null,
-      goalCreatorId?: string | null,
-    },
+    name?: string | null,
+    avatar?: AICoachAvatar | null,
     createdAt: string,
     updatedAt: string,
   } | null,

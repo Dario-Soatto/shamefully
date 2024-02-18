@@ -13,6 +13,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -23,6 +24,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -40,19 +42,23 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -73,6 +79,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -83,6 +90,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -100,19 +108,23 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -133,6 +145,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -143,6 +156,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -160,19 +174,23 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -198,6 +216,7 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -206,7 +225,7 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -226,19 +245,23 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -248,6 +271,7 @@ export const onCreateGoal = /* GraphQL */ `subscription OnCreateGoal($filter: Mo
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -266,6 +290,7 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -274,7 +299,7 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -294,19 +319,23 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -316,6 +345,7 @@ export const onUpdateGoal = /* GraphQL */ `subscription OnUpdateGoal($filter: Mo
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -334,6 +364,7 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -342,7 +373,7 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -362,19 +393,23 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -384,6 +419,7 @@ export const onDeleteGoal = /* GraphQL */ `subscription OnDeleteGoal($filter: Mo
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -402,6 +438,7 @@ export const onCreateCheckIn = /* GraphQL */ `subscription OnCreateCheckIn($filt
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -410,7 +447,7 @@ export const onCreateCheckIn = /* GraphQL */ `subscription OnCreateCheckIn($filt
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -420,10 +457,42 @@ export const onCreateCheckIn = /* GraphQL */ `subscription OnCreateCheckIn($filt
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -442,6 +511,7 @@ export const onUpdateCheckIn = /* GraphQL */ `subscription OnUpdateCheckIn($filt
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -450,7 +520,7 @@ export const onUpdateCheckIn = /* GraphQL */ `subscription OnUpdateCheckIn($filt
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -460,10 +530,42 @@ export const onUpdateCheckIn = /* GraphQL */ `subscription OnUpdateCheckIn($filt
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -482,6 +584,7 @@ export const onDeleteCheckIn = /* GraphQL */ `subscription OnDeleteCheckIn($filt
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -490,7 +593,7 @@ export const onDeleteCheckIn = /* GraphQL */ `subscription OnDeleteCheckIn($filt
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -500,10 +603,42 @@ export const onDeleteCheckIn = /* GraphQL */ `subscription OnDeleteCheckIn($filt
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -512,17 +647,52 @@ export const onDeleteCheckIn = /* GraphQL */ `subscription OnDeleteCheckIn($filt
   APITypes.OnDeleteCheckInSubscriptionVariables,
   APITypes.OnDeleteCheckInSubscription
 >;
-export const onCreateUserGoalPartners = /* GraphQL */ `subscription OnCreateUserGoalPartners(
-  $filter: ModelSubscriptionUserGoalPartnersFilterInput
-) {
-  onCreateUserGoalPartners(filter: $filter) {
+export const onCreateShamer = /* GraphQL */ `subscription OnCreateShamer($filter: ModelSubscriptionShamerFilterInput) {
+  onCreateShamer(filter: $filter) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -531,64 +701,72 @@ export const onCreateUserGoalPartners = /* GraphQL */ `subscription OnCreateUser
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
       id
       createdAt
       updatedAt
-      __typename
-    }
-    goal {
-      name
-      title
-      description
-      deadline
-      creator {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      userGoalsId
-      goalCreatorId
       __typename
     }
     createdAt
     updatedAt
+    userAssociatedShamesId
+    goalShamersId
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateUserGoalPartnersSubscriptionVariables,
-  APITypes.OnCreateUserGoalPartnersSubscription
+  APITypes.OnCreateShamerSubscriptionVariables,
+  APITypes.OnCreateShamerSubscription
 >;
-export const onUpdateUserGoalPartners = /* GraphQL */ `subscription OnUpdateUserGoalPartners(
-  $filter: ModelSubscriptionUserGoalPartnersFilterInput
-) {
-  onUpdateUserGoalPartners(filter: $filter) {
+export const onUpdateShamer = /* GraphQL */ `subscription OnUpdateShamer($filter: ModelSubscriptionShamerFilterInput) {
+  onUpdateShamer(filter: $filter) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -597,64 +775,72 @@ export const onUpdateUserGoalPartners = /* GraphQL */ `subscription OnUpdateUser
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
       id
       createdAt
       updatedAt
-      __typename
-    }
-    goal {
-      name
-      title
-      description
-      deadline
-      creator {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      userGoalsId
-      goalCreatorId
       __typename
     }
     createdAt
     updatedAt
+    userAssociatedShamesId
+    goalShamersId
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateUserGoalPartnersSubscriptionVariables,
-  APITypes.OnUpdateUserGoalPartnersSubscription
+  APITypes.OnUpdateShamerSubscriptionVariables,
+  APITypes.OnUpdateShamerSubscription
 >;
-export const onDeleteUserGoalPartners = /* GraphQL */ `subscription OnDeleteUserGoalPartners(
-  $filter: ModelSubscriptionUserGoalPartnersFilterInput
-) {
-  onDeleteUserGoalPartners(filter: $filter) {
+export const onDeleteShamer = /* GraphQL */ `subscription OnDeleteShamer($filter: ModelSubscriptionShamerFilterInput) {
+  onDeleteShamer(filter: $filter) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -663,7 +849,7 @@ export const onDeleteUserGoalPartners = /* GraphQL */ `subscription OnDeleteUser
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -672,41 +858,56 @@ export const onDeleteUserGoalPartners = /* GraphQL */ `subscription OnDeleteUser
       updatedAt
       __typename
     }
-    goal {
-      name
-      title
-      description
-      deadline
-      creator {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      userGoalsId
-      goalCreatorId
-      __typename
-    }
+    createdAt
+    updatedAt
+    userAssociatedShamesId
+    goalShamersId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteShamerSubscriptionVariables,
+  APITypes.OnDeleteShamerSubscription
+>;
+export const onCreateAICoach = /* GraphQL */ `subscription OnCreateAICoach($filter: ModelSubscriptionAICoachFilterInput) {
+  onCreateAICoach(filter: $filter) {
+    id
+    name
+    avatar
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteUserGoalPartnersSubscriptionVariables,
-  APITypes.OnDeleteUserGoalPartnersSubscription
+  APITypes.OnCreateAICoachSubscriptionVariables,
+  APITypes.OnCreateAICoachSubscription
+>;
+export const onUpdateAICoach = /* GraphQL */ `subscription OnUpdateAICoach($filter: ModelSubscriptionAICoachFilterInput) {
+  onUpdateAICoach(filter: $filter) {
+    id
+    name
+    avatar
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAICoachSubscriptionVariables,
+  APITypes.OnUpdateAICoachSubscription
+>;
+export const onDeleteAICoach = /* GraphQL */ `subscription OnDeleteAICoach($filter: ModelSubscriptionAICoachFilterInput) {
+  onDeleteAICoach(filter: $filter) {
+    id
+    name
+    avatar
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAICoachSubscriptionVariables,
+  APITypes.OnDeleteAICoachSubscription
 >;

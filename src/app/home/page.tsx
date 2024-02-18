@@ -1,6 +1,12 @@
 "use client";
 
-import React, { type FunctionComponent, useState } from "react";
+import React, {
+	type FunctionComponent,
+	useState,
+	useEffect,
+	HTMLAttributes,
+} from "react";
+import Spline from "@splinetool/react-spline";
 import { Input, Textarea } from "@nextui-org/react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -9,53 +15,116 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Checkbox } from "@nextui-org/react";
 import { generateClient } from "aws-amplify/api";
-import { createGoal, createUser } from "@/graphql/mutations";
-import { CreateGoalInput, CreateUserInput } from "@/API";
+import {
+	createCheckIn,
+	createGoal,
+	createShamer,
+	createUser,
+} from "@/graphql/mutations";
+import {
+	CheckInType,
+	CreateCheckInInput,
+	CreateGoalInput,
+	CreateShamerInput,
+	type Goal,
+} from "@/API";
 import { motion } from "framer-motion";
+import { BsX, BsPlus } from "react-icons/bs";
 
-const client = generateClient();
+import { toast } from "react-toastify";
+
+import { v4 as uuidv4 } from "uuid";
+
+const client = generateClient({});
 
 interface HomePageProps {}
 
 export const HomePage: FunctionComponent<HomePageProps> = () => {
+	const [goal, setGoal] = useState<Goal>({} as Goal);
+
+	const ref1 = React.useRef(null);
+	const ref2 = React.useRef(null);
+	const ref3 = React.useRef(null);
+	const ref4 = React.useRef(null);
+
+	useEffect(() => {
+		if (goal.id) {
+			(ref2.current as any)?.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [goal]);
+
 	return (
-		<div className="w-full h-full flex flex-col justify-start pt-20 items-center gap-20">
-			{/* <button
+		<div className="w-full h-full flex flex-col justify-start py-20 pb-40 items-center gap-20">
+			{/* <img src="/logo1.png" alt="logo" className="w-1/4" /> */}
+
+			<Spline
+				className="h-[50vh]"
+				scene="https://prod.spline.design/DUCYHHZaaS0eoNm1/scene.splinecode"
+			/>
+
+			<Button
+				size="lg"
+				color="primary"
 				onClick={() => {
-					client
-						.graphql({
-							query: createUser,
-							variables: {
-								input: {
-									firstName: "Elon",
-									lastName: "Musk",
-									email: "akaharao@gmail.com",
-									id: "demo",
-								} satisfies CreateUserInput,
-							},
-						})
-						.then((res) => {
-							console.log(res);
-						});
+					(ref1.current as any)?.scrollIntoView({ behavior: "smooth" });
 				}}
 			>
-				Create user
-			</button> */}
-			<AddGoal />
-			<AddShamers />
+				Get Started
+			</Button>
+			{/* <Button
+				onClick={() => {
+					fetch("/api/send-text").then((res) => {
+						console.log("res:", res);
+					});
+				}}
+			>
+				Test
+			</Button> */}
+			<div
+				ref={ref1}
+				className="w-full h-full justify-center items-center flex pt-20"
+			>
+				<AddGoal setGoal={setGoal} />
+			</div>
+			<div
+				ref={ref2}
+				className="w-full h-full justify-center items-center flex pt-20 "
+			>
+				{/* {goal.id && <AddShamers goal={goal} />} */}
+				<AddShamers goal={goal} />
+			</div>
+
+			<div
+				ref={ref3}
+				className="w-full h-full justify-center items-center flex flex-col pt-20 gap-5 font-bold text-3xl"
+			>
+				Let's get shaming{" "}
+				<img
+					src="/irritated_icon.gif"
+					className="rounded-full animate-in rotate-12 hover:-rotate-12 transition-all duration-300"
+				></img>
+			</div>
 		</div>
 	);
 };
 
 export default HomePage;
 
-const AddGoal = ({}) => {
+interface AddGoalProps extends HTMLAttributes<HTMLDivElement> {
+	setGoal: React.Dispatch<React.SetStateAction<Goal>>;
+}
+
+const AddGoal = ({ setGoal }: AddGoalProps) => {
 	const [goalInputForm, setGoalInputForm] = useState<CreateGoalInput>({});
 	const [allowShaming, setAllowShaming] = useState(false);
 
 	return (
 		<motion.form
-			className="w-5/6 h-fit rounded-lg p-5 gap-5 m-5 bg-white outline-zinc-200 outline  flex justify-start items-center flex-col  shadow-xl hover:shadow-lg transition-all duration-300"
+			initial={{ opacity: 0, y: 50 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 50 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			className="w-5/6 h-fit rounded-lg p-5 gap-5 m-5 bg-white outline-zinc-200 outline  flex justify-start items-center flex-col  shadow-lg hover:shadow-xl transition-all duration-300"
 			onSubmit={async (e) => {
 				e.preventDefault();
 				console.log("goalInputForm:", goalInputForm);
@@ -68,13 +137,13 @@ const AddGoal = ({}) => {
 								title: goalInputForm["title"],
 								description: goalInputForm["description"],
 								deadline: goalInputForm["deadline"],
-
 								goalCreatorId: "demo",
-							},
+							} satisfies CreateGoalInput,
 						},
 					})
 					.then((res) => {
 						console.log(res);
+						setGoal(res.data.createGoal as Goal);
 					});
 			}}
 		>
@@ -176,7 +245,7 @@ const AddGoal = ({}) => {
 					</label>
 				</LocalizationProvider>
 			</div>
-			<div className="w-1/2">
+			<div className="w-full flex justify-center items-center">
 				<Checkbox
 					size="lg"
 					className="!text-sm"
@@ -193,47 +262,139 @@ const AddGoal = ({}) => {
 				size="lg"
 				color="primary"
 				type="submit"
-				disabled={allowShaming}
-				className="disabled:opacity-50"
+				disabled={!allowShaming}
+				className="disabled:opacity-50 disabled:hover:opacity-50 "
 			>
 				I'm Ready to Be Shamed! (Create a Goal)
 			</Button>
 		</motion.form>
 	);
 };
-const AddShamers = ({}) => {
-	const [checkInInputForm, setCheckInInputForm] = useState<CreateGoalInput>({});
+
+interface AddShamersProps extends HTMLAttributes<HTMLDivElement> {
+	ref?: React.RefObject<HTMLDivElement>;
+	goal: Goal;
+}
+const AddShamers = ({ goal }: AddShamersProps) => {
+	const [checkInInputForm, setCheckInInputForm] = useState<CreateCheckInInput>(
+		{}
+	);
+
+	const [checkInFrequency, setCheckInFrequency] = useState(1);
+
+	const [shamers, setShamers] = useState<CreateShamerInput[]>([]);
+	const [allowShaming, setAllowShaming] = useState(false);
 
 	return (
-		<section className="w-5/6 h-fit rounded-lg p-5 m-5 bg-white outline-zinc-200 outline  flex justify-start items-center flex-col gap-5 shadow-xl hover:shadow-lg transition-all duration-300">
-			<div className="font-bold ">Bring on the Shame</div>
-			<div className="w-full h-fit p-2 flex mobile:flex-col gap-5">
+		<motion.form
+			initial={{ opacity: 0, y: 50 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 50 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			className="w-5/6 h-fit rounded-lg p-5 m-5 bg-white outline-zinc-200 outline py-10 flex justify-start items-center flex-col gap-5 shadow-lg hover:shadow-xl transition-all duration-300"
+			onSubmit={async (e) => {
+				e.preventDefault();
+
+				if (!goal.id) {
+					console.error("No goal ID found");
+					toast.error("No goal ID found");
+					return;
+				}
+
+				if (!checkInInputForm["type"]) {
+					toast.error("Please select a check in type first!");
+					return;
+				}
+				if (!checkInFrequency) {
+					toast.error("Please select a frequency!");
+					return;
+				}
+				console.log("checkInInputForm:", checkInInputForm);
+				console.log("shamers:", shamers);
+
+				await client.graphql({
+					query: createCheckIn,
+					variables: {
+						input: {
+							id: goal.id,
+							type: checkInInputForm["type"] ?? CheckInType.CLICK,
+							goalCheckInsId: goal.id,
+						} satisfies CreateCheckInInput,
+					},
+				});
+
+				await shamers.forEach(async (shamer) => {
+					console.log("shamer:", shamer);
+					if (!shamer.id) return console.error("No shamer ID found");
+					if (!shamer.name) return console.error("No shamer name found");
+					if (!shamer.phoneNumber)
+						return console.error("No shamer phone number found");
+
+					await client.graphql({
+						query: createShamer,
+						variables: {
+							input: {
+								id: shamer.id,
+								name: shamer.name,
+								phoneNumber: shamer.phoneNumber,
+								goalShamersId: goal.id,
+							} satisfies CreateShamerInput,
+						},
+					});
+				});
+			}}
+		>
+			<div className="flex flex-col justify-center items-center">
+				<span className="font-bold text-lg">{goal.title}?</span>
+				<span>Let's Bring on the Shame</span>
+			</div>
+			<div className="w-full h-fit p-2 flex mobile:flex-col gap-5 justify-center items-end">
 				<label className="flex flex-col gap-2 text-xs text-opacity-80 w-full">
 					How do you want to check in?
 					<Select
 						label="Select a method"
+						name="type"
 						onChange={(e) => {
 							setCheckInInputForm({
 								...checkInInputForm,
-								[e.target.name]: e.target.value,
+								type: e.target.value as CheckInType,
 							});
 						}}
+						defaultSelectedKeys={CheckInType.CLICK}
 					>
 						{[
-							{ label: "Take a Photo", value: "PHOTO" },
-							{ label: "Send a Text", value: "TEXT" },
-							{ label: "Send an Email", value: "EMAIL" },
-							{ label: "Make a Phone Call", value: "PHONE_CALL" },
-							{ label: "Post It", value: "SOCIAL_MEDIA_POST" },
+							{ label: "Check In On App", value: CheckInType.CLICK },
+							{ label: "Take a Photo", value: CheckInType.PHOTO },
+							// { label: "Send a Text", value: CheckInType.TEXT, disabled: true },
+							// {
+							// 	label: "Send an Email",
+							// 	value: CheckInType.EMAIL,
+							// 	disabled: true,
+							// },
+							// {
+							// 	label: "Make a Phone Call",
+							// 	value: CheckInType.PHONE_CALL,
+							// 	disabled: true,
+							// },
+							// {
+							// 	label: "Post It On Social Media",
+							// 	value: CheckInType.SOCIAL_MEDIA_POST,
+							// 	disabled: true,
+							// },
 						].map((CheckInType: any) => (
-							<SelectItem key={CheckInType.value} value={CheckInType.value}>
+							<SelectItem
+								key={CheckInType.value}
+								value={CheckInType.value}
+								className="disabled:opacity-50 disabled:hover:opacity-50"
+								unselectable={CheckInType.disabled ? "on" : "off"}
+							>
 								{CheckInType.label}
 							</SelectItem>
 						))}
 					</Select>
 				</label>
 				<label className="flex flex-col gap-2 text-xs text-opacity-80 w-full">
-					How do you want to check in?
+					How often?
 					<Select label="Select a Check In Frequency">
 						{[
 							{ label: "Every day", value: 1 },
@@ -249,52 +410,157 @@ const AddShamers = ({}) => {
 					</Select>
 				</label>
 			</div>
-
-			<Button size="lg" color="primary">
+			<Button
+				size="lg"
+				color="primary"
+				className=" flex-shrink-0 mb-1"
+				onClick={() => {
+					setShamers([
+						...shamers,
+						{
+							id: uuidv4(),
+						},
+					]);
+				}}
+			>
+				<BsPlus size={24} color="white" />
 				Add Shamer
 			</Button>
+			{shamers.map((shamer, index) => (
+				<ShamerComponent
+					key={shamer.id}
+					index={index}
+					shamer={shamer}
+					shamers={shamers}
+					setShamers={setShamers}
+				/>
+			))}
 
-			<div className="w-full h-fit p-2 flex mobile:flex-col gap-5">
-				<label className="flex flex-col gap-2 text-xs text-opacity-80 w-full">
-					How do you want to check in?
-					<Select label="Select a method">
-						{[
-							{ label: "Take a Photo", value: "PHOTO" },
-							{ label: "Send a Text", value: "TEXT" },
-							{ label: "Send an Email", value: "EMAIL" },
-							{ label: "Make a Phone Call", value: "PHONE_CALL" },
-							{ label: "Post It", value: "SOCIAL_MEDIA_POST" },
-						].map((CheckInType: any) => (
-							<SelectItem key={CheckInType.value} value={CheckInType.value}>
-								{CheckInType.label}
-							</SelectItem>
-						))}
-					</Select>
-				</label>
-				<label className="flex flex-col gap-2 text-xs text-opacity-80 w-full">
-					How do you want to check in?
-					<Select label="Select a Check In Frequency">
-						{[
-							{ label: "Every day", value: 1 },
-							{ label: "Every 2 days", value: 2 },
-							{ label: "Every 3 days", value: 3 },
-							{ label: "Every week", value: 7 },
-							{ label: "Every 2 weeks", value: 14 },
-						].map((CheckInType: any) => (
-							<SelectItem key={CheckInType.value} value={CheckInType.value}>
-								{CheckInType.label}
-							</SelectItem>
-						))}
-					</Select>
-				</label>
-			</div>
-
-			<div className="w-1/2">
-				<Checkbox size="lg" className="!text-sm">
-					I agree that all shaming being done is with my consent and will be
-					well deserved in the eventuality that it happens
+			<div className="w-full justify-center items-center flex pt-20">
+				<Checkbox
+					size="lg"
+					className="!text-xs w-full"
+					checked={allowShaming}
+					onChange={() => setAllowShaming(!allowShaming)}
+				>
+					These people have agreed to shame me and have my consent to do so
 				</Checkbox>
 			</div>
-		</section>
+			<Button
+				size="lg"
+				color="primary"
+				type="submit"
+				disabled={!allowShaming}
+				className="disabled:opacity-50 disabled:hover:opacity-50 "
+				onClick={() => {
+					console.log("checkInInputForm:", checkInInputForm);
+					console.log("shamers:", shamers);
+				}}
+			>
+				Start Shaming
+			</Button>
+		</motion.form>
+	);
+};
+
+interface ShamerComponentProps extends HTMLAttributes<HTMLDivElement> {
+	index: number;
+
+	shamer: CreateShamerInput;
+	shamers: CreateShamerInput[];
+	setShamers: React.Dispatch<React.SetStateAction<CreateShamerInput[]>>;
+}
+
+const ShamerComponent = ({
+	index,
+	setShamers,
+	shamer,
+	shamers,
+}: ShamerComponentProps) => {
+	const [isInvalidPhone, setIsInvalidPhone] = useState(false);
+	const validatePhone = (value: string) => {
+		const pattern = /^(\([0-9]{3}\)\s?|[0-9]{3})-?\s?[0-9]{3}-?\s?[0-9]{4}$/;
+		return pattern.test(value);
+	};
+	const validateEmail = (value: string) =>
+		value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+
+	// const isInvalidPhone = React.useMemo(() => {
+	// 	if ((shamers[index]?.phoneNumber ?? "") === "") return false;
+
+	// 	return validatePhone(shamers[index]?.phoneNumber ?? "") ? false : true;
+	// }, [shamers[index]]);
+
+	return (
+		<div className="w-full p-5 flex mobile:flex-col gap-2 rounded-lg bg-default-100 hover:shadow-xl shadow-lg">
+			<div className="h-full w-full">
+				<Input
+					label="Name"
+					name="name"
+					value={shamers[index]?.name as string}
+					onChange={(e) => {
+						if (!shamer.id) {
+							console.error("No shamer ID found");
+							return;
+						}
+
+						const newShamers = [...shamers];
+						newShamers[index] = {
+							...shamers[index],
+							[e.target.name]: e.target.value,
+						};
+						setShamers(newShamers);
+					}}
+					classNames={{}}
+					type="text"
+					className="w-full"
+				/>
+			</div>
+			<div className="h-full w-full">
+				<Input
+					name="phoneNumber"
+					value={shamers[index]?.phoneNumber as string}
+					isInvalid={isInvalidPhone}
+					label="Phone"
+					color={isInvalidPhone ? "danger" : "success"}
+					errorMessage={isInvalidPhone && "Please enter a valid phone number"}
+					onChange={(e) => {
+						if (!shamer.id) {
+							console.error("No shamer ID found");
+							return;
+						}
+						const newShamers = [...shamers];
+
+						if (!validatePhone(e.target.value)) {
+							setIsInvalidPhone(true);
+						} else {
+							setIsInvalidPhone(false);
+						}
+
+						newShamers[index] = {
+							...shamers[index],
+							[e.target.name]: e.target.value,
+						};
+						setShamers(newShamers);
+					}}
+					classNames={{}}
+					type="phone"
+					className="w-full"
+				/>
+			</div>
+
+			<Button
+				onClick={() => {
+					setShamers((currentShamers) =>
+						currentShamers.filter(
+							(existingShamer) => existingShamer.id !== shamer.id
+						)
+					);
+				}}
+				className="h-12 w-12 bg-red-600 justify-center items-center flex rounded-full flex-shrink-0 opacity-70 hover:opacity-100 transition-all cursor-pointer"
+			>
+				<BsX size={24} color="white" />
+			</Button>
+		</div>
 	);
 };

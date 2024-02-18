@@ -4,10 +4,14 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+export { default as AICoachCreateForm } from "./AICoachCreateForm";
+export { default as AICoachUpdateForm } from "./AICoachUpdateForm";
 export { default as CheckInCreateForm } from "./CheckInCreateForm";
 export { default as CheckInUpdateForm } from "./CheckInUpdateForm";
 export { default as GoalCreateForm } from "./GoalCreateForm";
 export { default as GoalUpdateForm } from "./GoalUpdateForm";
+export { default as ShamerCreateForm } from "./ShamerCreateForm";
+export { default as ShamerUpdateForm } from "./ShamerUpdateForm";
 export { default as UserCreateForm } from "./UserCreateForm";
 export { default as UserUpdateForm } from "./UserUpdateForm";
 export { default as studioTheme } from "./studioTheme";

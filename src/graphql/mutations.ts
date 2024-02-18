@@ -16,6 +16,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -26,6 +27,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -43,19 +45,23 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -79,6 +85,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -89,6 +96,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -106,19 +114,23 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -142,6 +154,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     firstName
     lastName
     email
+    phoneNumber
     goals {
       items {
         name
@@ -152,6 +165,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         createdAt
         updatedAt
         userGoalsId
+        shamerShamingGoalId
         goalCreatorId
         __typename
       }
@@ -169,19 +183,23 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partnerGoals {
+    associatedShames {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -210,6 +228,7 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -218,7 +237,7 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -238,19 +257,23 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -260,6 +283,7 @@ export const createGoal = /* GraphQL */ `mutation CreateGoal(
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -281,6 +305,7 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -289,7 +314,7 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -309,19 +334,23 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -331,6 +360,7 @@ export const updateGoal = /* GraphQL */ `mutation UpdateGoal(
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -352,6 +382,7 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -360,7 +391,7 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -380,19 +411,23 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
         updatedAt
         userCheckInsId
         goalCheckInsId
+        shamerShamingCheckInsId
         checkInCreatorId
         __typename
       }
       nextToken
       __typename
     }
-    partners {
+    shamers {
       items {
         id
-        userId
-        goalId
+        name
+        phoneNumber
+        email
         createdAt
         updatedAt
+        userAssociatedShamesId
+        goalShamersId
         __typename
       }
       nextToken
@@ -402,6 +437,7 @@ export const deleteGoal = /* GraphQL */ `mutation DeleteGoal(
     createdAt
     updatedAt
     userGoalsId
+    shamerShamingGoalId
     goalCreatorId
     __typename
   }
@@ -423,6 +459,7 @@ export const createCheckIn = /* GraphQL */ `mutation CreateCheckIn(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -431,7 +468,7 @@ export const createCheckIn = /* GraphQL */ `mutation CreateCheckIn(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -441,10 +478,42 @@ export const createCheckIn = /* GraphQL */ `mutation CreateCheckIn(
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -466,6 +535,7 @@ export const updateCheckIn = /* GraphQL */ `mutation UpdateCheckIn(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -474,7 +544,7 @@ export const updateCheckIn = /* GraphQL */ `mutation UpdateCheckIn(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -484,10 +554,42 @@ export const updateCheckIn = /* GraphQL */ `mutation UpdateCheckIn(
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -509,6 +611,7 @@ export const deleteCheckIn = /* GraphQL */ `mutation DeleteCheckIn(
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -517,7 +620,7 @@ export const deleteCheckIn = /* GraphQL */ `mutation DeleteCheckIn(
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -527,10 +630,42 @@ export const deleteCheckIn = /* GraphQL */ `mutation DeleteCheckIn(
       __typename
     }
     deadline
+    parentGoal {
+      name
+      title
+      description
+      deadline
+      creator {
+        firstName
+        lastName
+        email
+        phoneNumber
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      checkIns {
+        nextToken
+        __typename
+      }
+      shamers {
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      userGoalsId
+      shamerShamingGoalId
+      goalCreatorId
+      __typename
+    }
     createdAt
     updatedAt
     userCheckInsId
     goalCheckInsId
+    shamerShamingCheckInsId
     checkInCreatorId
     __typename
   }
@@ -539,18 +674,55 @@ export const deleteCheckIn = /* GraphQL */ `mutation DeleteCheckIn(
   APITypes.DeleteCheckInMutationVariables,
   APITypes.DeleteCheckInMutation
 >;
-export const createUserGoalPartners = /* GraphQL */ `mutation CreateUserGoalPartners(
-  $input: CreateUserGoalPartnersInput!
-  $condition: ModelUserGoalPartnersConditionInput
+export const createShamer = /* GraphQL */ `mutation CreateShamer(
+  $input: CreateShamerInput!
+  $condition: ModelShamerConditionInput
 ) {
-  createUserGoalPartners(input: $input, condition: $condition) {
+  createShamer(input: $input, condition: $condition) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -559,65 +731,75 @@ export const createUserGoalPartners = /* GraphQL */ `mutation CreateUserGoalPart
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
       id
       createdAt
       updatedAt
-      __typename
-    }
-    goal {
-      name
-      title
-      description
-      deadline
-      creator {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      userGoalsId
-      goalCreatorId
       __typename
     }
     createdAt
     updatedAt
+    userAssociatedShamesId
+    goalShamersId
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateUserGoalPartnersMutationVariables,
-  APITypes.CreateUserGoalPartnersMutation
+  APITypes.CreateShamerMutationVariables,
+  APITypes.CreateShamerMutation
 >;
-export const updateUserGoalPartners = /* GraphQL */ `mutation UpdateUserGoalPartners(
-  $input: UpdateUserGoalPartnersInput!
-  $condition: ModelUserGoalPartnersConditionInput
+export const updateShamer = /* GraphQL */ `mutation UpdateShamer(
+  $input: UpdateShamerInput!
+  $condition: ModelShamerConditionInput
 ) {
-  updateUserGoalPartners(input: $input, condition: $condition) {
+  updateShamer(input: $input, condition: $condition) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -626,65 +808,75 @@ export const updateUserGoalPartners = /* GraphQL */ `mutation UpdateUserGoalPart
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
       id
       createdAt
       updatedAt
-      __typename
-    }
-    goal {
-      name
-      title
-      description
-      deadline
-      creator {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      userGoalsId
-      goalCreatorId
       __typename
     }
     createdAt
     updatedAt
+    userAssociatedShamesId
+    goalShamersId
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserGoalPartnersMutationVariables,
-  APITypes.UpdateUserGoalPartnersMutation
+  APITypes.UpdateShamerMutationVariables,
+  APITypes.UpdateShamerMutation
 >;
-export const deleteUserGoalPartners = /* GraphQL */ `mutation DeleteUserGoalPartners(
-  $input: DeleteUserGoalPartnersInput!
-  $condition: ModelUserGoalPartnersConditionInput
+export const deleteShamer = /* GraphQL */ `mutation DeleteShamer(
+  $input: DeleteShamerInput!
+  $condition: ModelShamerConditionInput
 ) {
-  deleteUserGoalPartners(input: $input, condition: $condition) {
+  deleteShamer(input: $input, condition: $condition) {
     id
-    userId
-    goalId
-    user {
+    name
+    phoneNumber
+    email
+    shamingGoal {
+      items {
+        name
+        title
+        description
+        deadline
+        id
+        createdAt
+        updatedAt
+        userGoalsId
+        shamerShamingGoalId
+        goalCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    shamingCheckIns {
+      items {
+        id
+        title
+        type
+        description
+        deadline
+        createdAt
+        updatedAt
+        userCheckInsId
+        goalCheckInsId
+        shamerShamingCheckInsId
+        checkInCreatorId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    account {
       firstName
       lastName
       email
+      phoneNumber
       goals {
         nextToken
         __typename
@@ -693,7 +885,7 @@ export const deleteUserGoalPartners = /* GraphQL */ `mutation DeleteUserGoalPart
         nextToken
         __typename
       }
-      partnerGoals {
+      associatedShames {
         nextToken
         __typename
       }
@@ -702,41 +894,65 @@ export const deleteUserGoalPartners = /* GraphQL */ `mutation DeleteUserGoalPart
       updatedAt
       __typename
     }
-    goal {
-      name
-      title
-      description
-      deadline
-      creator {
-        firstName
-        lastName
-        email
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      checkIns {
-        nextToken
-        __typename
-      }
-      partners {
-        nextToken
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      userGoalsId
-      goalCreatorId
-      __typename
-    }
+    createdAt
+    updatedAt
+    userAssociatedShamesId
+    goalShamersId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteShamerMutationVariables,
+  APITypes.DeleteShamerMutation
+>;
+export const createAICoach = /* GraphQL */ `mutation CreateAICoach(
+  $input: CreateAICoachInput!
+  $condition: ModelAICoachConditionInput
+) {
+  createAICoach(input: $input, condition: $condition) {
+    id
+    name
+    avatar
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteUserGoalPartnersMutationVariables,
-  APITypes.DeleteUserGoalPartnersMutation
+  APITypes.CreateAICoachMutationVariables,
+  APITypes.CreateAICoachMutation
+>;
+export const updateAICoach = /* GraphQL */ `mutation UpdateAICoach(
+  $input: UpdateAICoachInput!
+  $condition: ModelAICoachConditionInput
+) {
+  updateAICoach(input: $input, condition: $condition) {
+    id
+    name
+    avatar
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAICoachMutationVariables,
+  APITypes.UpdateAICoachMutation
+>;
+export const deleteAICoach = /* GraphQL */ `mutation DeleteAICoach(
+  $input: DeleteAICoachInput!
+  $condition: ModelAICoachConditionInput
+) {
+  deleteAICoach(input: $input, condition: $condition) {
+    id
+    name
+    avatar
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAICoachMutationVariables,
+  APITypes.DeleteAICoachMutation
 >;
